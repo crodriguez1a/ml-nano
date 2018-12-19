@@ -5,14 +5,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 
 # Reading the csv file
-data = pd.read_csv("data.csv")
+data = pd.read_csv("lessons/data/data.csv")
 
 # Splitting the data into X and y
 import numpy as np
 X = np.array(data[['x1', 'x2']])
 y = np.array(data['y'])
-
-
 
 svc = SVC()
 dt = DecisionTreeClassifier()
