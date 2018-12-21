@@ -1,7 +1,7 @@
 **Week of Dec 11, 2018**
 
 
-| Project	Suggested Deadline  | |
+| Project	Suggested Deadline  | | 
 | --- | --- |
 | Term Begins| 	Dec 11 |
 | Predicting Boston Housing Prices	| Jan 1 |
@@ -92,8 +92,8 @@ When we don't know how many clusters we want to end up with, controlling cluster
 | ~~1hr~~ | Complete Lesson 4: Career Services Available to you | Setup your career portal and update it periodically. |
 | ~~.5hr~~ | Complete Lesson 5 quiz: Numpy and Pandas Assessment | Practice the quizzes on your own computer or on a workspace |
 | ~~2hr~~ | Complete Lesson 6: Training and Testing Models | Make a note of these steps, you would be following the same in next projects. Bonus: What is a cross validation set? |
-| 1hr | Complete Lesson 7: Evalutation Metrics | The diagram in the wikipedia of Precision and recall makes it easy to understand |
-| 1hr | Complete Lesson 8: Model Selection | This section is important for debugging when your model is not performing as expected. |
+| ~~1hr~~ | Complete Lesson 7: Evalutation Metrics | The diagram in the wikipedia of Precision and recall makes it easy to understand |
+| ~~1hr~~ | Complete Lesson 8: Model Selection | This section is important for debugging when your model is not performing as expected. |
 
 
 **Week of Dec 18, 2018**
@@ -170,3 +170,126 @@ We have seen that descriptive statistics provide information about our immediate
 
 - Regression returns a value (predicts trajectory)
 - Classification returns a state (+ or -)
+
+
+# Confusion Matrix
+
+Table that stores these four values
+
+|| Spam Folder | Inbox |
+|---|---|---|---|
+|Spam| True Positive | False Positive |
+|Not Spam| True Negative | False Negative |
+
+|| Guessed Positive | Guessed Negative |
+|---|---|---|---|
+|Positive| True Positive | False Positive |
+|Negative| True Negative | False Negative |
+
+###Type 1 and Type 2 Errors
+
+Sometimes in the literature, you'll see False Positives and False Negatives as Type 1 and Type 2 errors. Here is the correspondence:
+
+**Type 1 Error** (Error of the first kind, or False Positive): In the medical example, this is when we misdiagnose a healthy patient as sick.
+
+**Type 2 Error** (Error of the second kind, or False Negative): In the medical example, this is when we misdiagnose a sick patient as healthy.
+
+## Accuracy
+
+Ration between the number of correctly classified points and the number of total points
+
+True Positive + True Negative / Total = n%
+
+`accuracy_score` in sklearn
+
+Accuracy = correctly classified points/all points
+
+Accuracy won't work data is skewed. This affects the efficacy of an accuracy score
+
+## Precision and Recall
+
+High Recall vs High Precision Models
+
+### Precision
+
+Out of all the points predicted to be positive[sick], how many were actually positive[sick]?
+
+Precision = Correctly classified as positive / total classified as positive
+
+
+### Recall
+
+Out of the points labeled positive how many did we correctly classify as positive
+
+Recall = Correctly classified as positive / total actual positive
+
+
+## F1 Score
+
+Harmonic Mean Average - 2 * xy / x + y where x = precision and y = recall
+Closer to the smallest between precision and recall raising a flag if one is small
+
+## Fβ (beta) Score
+
+Prioritizes either recall or precision
+The smaller the beta the more we care about precision
+The larger the beta the more we care about recall
+
+If β=0, then we get precision.
+If β=∞, then we get recall.
+For other values of β, if they are close to 0, we get something close to precision, if they are large numbers, then we get something close to recall, and if β=1, then we get the harmonic mean of precision and recall.
+
+## ROC Curve
+
+Perflict SPlit 1.0
+Good SPlit 0.8
+Bad or Random SPlit 0.5
+
+True Positive Rate = True Positives/ All Positives
+False Positive Rate = False Positives / All Negatives
+Two extrems are binary 1,1 0,0
+Perfect split 0,1
+
+The closer your area under the ROC curve is to one, the better your model.
+
+## Regression Metrics
+
+### Mean Absolute Error
+Measure the fit using absolute values of distance from the points to the line. Absolute value function is not differentiable. Not good with Gradient Descent.
+
+### Mean Squared Error
+More common. Add the squares of the distances between the points and the line.
+
+### R2 Score
+Compare a model to simplest possible model
+Good models are closer to 1, closer to zero is basically a guess
+
+
+# Model Selection
+
+## Types of Errors
+
+Underfitting is often due to oversimplifying the problem/model
+Underfitting doesn't do well in a traning set "Error due to Bias" "High Bias"
+
+Overfitting is often due to overcomplicating the problem/model
+Model is too specific, does well training set but memorizes instead of learning charasterics. "Error due to Variance" "High Variance"
+
+## Model Complexity Graph
+
+Visualizes underfitting, good, and overfitting models
+We go from linear to polynomial with rising degree
+
+## Cross Validation Set
+
+A set that isn't testing or training, but used to validate our model selection without using the testing set.
+
+## K-Fold Cross Validation
+
+Randomizing cross validation data set Try `KFold` in sklearn with random param set to True
+
+The data set is divided into k subsets and each time, one of the k subsets is used as the test set and the other k-1 subsets are put together to form a training set. Then the average error across all k trials is computed. This helps prevent overfitting.
+
+## Grid Search
+
+Make a table with all the possibilities of parameters and hyperparemeters for any given model
