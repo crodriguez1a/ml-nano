@@ -270,7 +270,7 @@ Good models are closer to 1, closer to zero is basically a guess
 ## Types of Errors
 
 Underfitting is often due to oversimplifying the problem/model
-Underfitting doesn't do well in a traning set "Error due to Bias" "High Bias"
+Underfitting doesn't do well in a training set "Error due to Bias" "High Bias"
 
 Overfitting is often due to overcomplicating the problem/model
 Model is too specific, does well training set but memorizes instead of learning charasterics. "Error due to Variance" "High Variance"
@@ -290,6 +290,81 @@ Randomizing cross validation data set Try `KFold` in sklearn with random param s
 
 The data set is divided into k subsets and each time, one of the k subsets is used as the test set and the other k-1 subsets are put together to form a training set. Then the average error across all k trials is computed. This helps prevent overfitting.
 
+train k times
+Each time using a different bucket as our test set and the remaining points as our trainings. We then average the results.
+
 ## Grid Search
 
 Make a table with all the possibilities of parameters and hyperparemeters for any given model
+
+## Boston Home Prices
+
+- Data gathering: https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.names
+
+# Linear Regression
+
+- Classification asks Yes or No
+- Regression asks How Much?
+	- Drawing the best fitting line
+
+- Fitting a line Through Data
+	- Moving closer to each of the points
+- Moving a Line (utilizing straight line equation)
+	- slope and intercept (parameters) y = w1(x) + w2 
+	- w1 is slope
+	- w2 is intercept (vertical intersection)
+- Absolute Trick (taking into account horizontal distance)
+	-  (p,q) y = (w1 + p)x + (w2 + 1) as coeficient alpha
+	-  add p param or horizontal distance
+	-  Learning Rate: Alpha is the coeficient for minimal change
+	-  Applying a learning rate to slope and intercept (alpha) to move the line gradually.
+- Square Trick (absolute trick + vertical distance) or squared distance
+	- Add q param or vertical distance as coeficient (q - q prime)
+	- q prime is where q intersects the line
+	- This builds upon the absolute trick
+- Gradient Descent (Descrease an error function by walking along the negative of its gradient)
+	- Calculates Error from random line
+	- Moving the line decreasing error
+	- Using the Error function (using the derivative or gradient) 
+- Mean Absolute Error (error function)
+	- y - y(hat)
+	- Sum of all the errors(absolute values) divided by m(number of points)
+- Mean Sqared Error
+	- y - y(hat) squared
+	- Average of series of squares 	
+- Minimizing Error Functions
+	- Gradient step is applied squared trick 
+- Mean vs Total Error
+	- How to decide? It doesn't matter because sum or total error is just a multiple of the mean squared error
+- Mini-batch Gradient Descent
+	- Batch vs Stochastic
+	- Stochastic is applying squared or absolute trick at every point one-by-one
+	- Batch is applying at every point at the same time 
+	- Mini-batch splits data into small batches (for computational cost). Each batch is used to update weights.
+- Absolute Error vs Squared Error
+	- Average vs Sum
+- Higher Dimensions
+	- Fitting a plane
+	- n-1 dimensional hyperplane (n dimensions) 
+- Multiple Linear Regression
+	- Predictor is an "independent variable" 
+- Closed Form Solution
+	- Calculating weights and values in a Matrix of n dimensions 
+- Linear Regression Warnings
+	- Linear Regression Works Best When the Data is Linear
+	- Linear Regression is Sensitive to Outliers
+		- Do outliers point to a new trajectory or potential a quadratic or polynomial curve? If not that outliers could potentially be ignored.  
+- Polynomial Regression
+	- Consider higher degree polynomials (apply more weights) 
+- Regularization (make sure models don't overfit)
+	-  Adding complexity of the model to error function
+	-  Calculating combined error (e.g., from each coeficient in polynomial)
+	-  L1 Regularization adds absolute value (coeficient) to the error 
+	-  Adds complexity to error to predict future error
+	-  Includes Lambda tuning
+	-  Tuning how much to punish complexity with parameter called lambda
+	-  lambda is an apetite for complexity
+	-  L1 vs L2 See chart
+		- L1 (biggest difference)
+			- Feature Selection will reduce noise (removes irelevant columns)
+		- L2 is used when most columns are relevant
