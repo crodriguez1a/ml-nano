@@ -11,7 +11,7 @@ bmi_life_data = pd.read_csv("bmi_and_life_expectancy.csv")
 # Fit the model and Assign it to bmi_life_model
 model = LinearRegression()
 
-# Features: Country,Life expectancy,BMI
+# Features: Country, Life expectancy, BMI
 X = np.array(bmi_life_data[['BMI']])
 y = np.array(bmi_life_data['Life expectancy'])
 

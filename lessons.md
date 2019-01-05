@@ -368,3 +368,28 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 		- L1 (biggest difference)
 			- Feature Selection will reduce noise (removes irelevant columns)
 		- L2 is used when most columns are relevant
+
+# Perceptron Algorithm
+
+- Linear Boundaries
+	- Has a linear equation produces a prediction as a score
+	- bias is an additional param
+	- y hat should resemble y as closely as possible
+	- wsub1xsub1+wsub2xsub2 + bias = 0
+- Higher Dimensions
+	- n-dimensional space
+	- Wx + b = 0 vector(W) will have n dimensions 
+	- boundary is n-1 dimensional hyperplane
+- Perceptrons
+	- Building block of neural network
+	- encoding of our equation into a graph
+	- Nodes that represent the linear equation adding coeficient to bias for consistent notation
+	- Second node adds a step function which translates score as binary result (or some other calculated result)
+- Perceptrons as Logical Operators (and | or )
+	- And true, true = true etc. Bools represented as 0,1
+	- XOR operator = if anyone of the inputs is true, output true, any other combination ouputs false
+- Perceptron Trick
+	- Finding a line to correctly split data
+	- a mathematical trick that modifies the equation of the line, so that it comes closer to a particular point.
+	-  repositioning the line gradually (learning rate x inputs). We use the input data to bring the line closer to the point slowly.
+- Perceptron Algorithm
