@@ -393,3 +393,45 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 	- a mathematical trick that modifies the equation of the line, so that it comes closer to a particular point.
 	-  repositioning the line gradually (learning rate x inputs). We use the input data to bring the line closer to the point slowly.
 - Perceptron Algorithm
+
+# Decision Trees
+
+- Recommending Apps Example
+	- Base on previous data, recommend app to download 
+	- Adding nodes with traversal based on the most apparent patterns 
+	- Determining axes that would help establish thresholds for each nodes in the tree
+- Entropy (from Physics)
+	- Ability of particles to move around 
+	- Solid (Low), Liquid (Medium), Gas (High)
+	- How data points can be re-organized
+	- Opposite is called Knowledge, How much do we know about a datasets homogeny. The more we know the higher the knowledge.
+- Entropy Formula 1
+	- High knowledge makes for easier prediction? 
+- Entropy Formula 2
+	- Probability of a group is the product of all individual probability 
+- Entropy Formula 3
+	- Rule: The logarithm of product is the sum of the logarithms
+	- Definition of Entropy is the average of the logarithms
+	
+	```javascript
+	entropy = -(p1)*Math.log2(p1) -(p2)*Math.log2(p2)-(p3)*Math.log2(p3)
+	```
+- Multiclass Entropy
+	- Sum of all 
+- Maximizing Information Gain
+	- Information gain = change in entropy
+	- Calculate entropy is data then children, difference between parent and average of children is information gain
+	- Alogrithm will choose a decision node based on the highest information gain 
+- Random Forests
+	- problem with decision trees
+		- too many decisions, overfitting  
+		- too many speficic boundaries
+	- Multiple (random) trees make predictions
+- Hyperparameters
+	- Maximum Depth
+	- Minimum number of samples per leaf (to avoid having unbalanced nodes)
+		- If it's an integer, it's the number of minimum samples in the leaf. If it's a float, it'll be considered as the minimum percentage of samples on each leaf.
+	- Minimum number of samples per split (same as per leaf but applied on any split of a node)
+	- Maximum number of features (to avoid overfitting, complex trees)
+	- Large depth very often causes overfitting, since a tree that is too deep, can memorize the data. Small depth can result in a very simple model, which may cause underfitting.
+Small minimum samples per leaf may result in leaves with very few samples, which results in the model memorizing the data, or in other words, overfitting. Large minimum samples may result in the tree not having enough flexibility to get built, and may result in underfitting.

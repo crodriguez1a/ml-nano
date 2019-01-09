@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from sklearn.cross_validation import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -8,7 +9,6 @@ from sklearn.svm import SVC
 data = pd.read_csv("lessons/data/data.csv")
 
 # Splitting the data into X and y
-import numpy as np
 X = np.array(data[['x1', 'x2']])
 y = np.array(data['y'])
 
