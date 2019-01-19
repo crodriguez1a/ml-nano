@@ -435,3 +435,146 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 	- Maximum number of features (to avoid overfitting, complex trees)
 	- Large depth very often causes overfitting, since a tree that is too deep, can memorize the data. Small depth can result in a very simple model, which may cause underfitting.
 Small minimum samples per leaf may result in leaves with very few samples, which results in the model memorizing the data, or in other words, overfitting. Large minimum samples may result in the tree not having enough flexibility to get built, and may result in underfitting.
+
+# Naive Bayes
+- Based on Conditional Probability 
+
+- Guess the Person
+	- Initial guess is called the prior
+	- final guess after new info (condition) is called posterior
+	- guess is based on highest probably after inferring
+- Known and Inferred
+	-  known: P(A) P(R|A) We know the probability of R given A
+	-  Bayes theorem gives the inferred or the probablility a given r P(A|R)
+- Guess the Person Now
+	- Prior vs Posterior Probablities
+	- formula of conditional probability
+		- product of the probabilities
+		- normalize probablities divide by the sum of n  
+- Bayes Theorem
+	- re-calculating the probability of an event based on additional knowns
+	- Posterior Probabilities caclulated after we knew that R occurred 
+- False Positives
+	- rate error is larger than number of possibilities
+- Bayesian Learning
+	-  prior, posterior, normalization
+- Naive Bayes Alogrithm
+	- Naive Assumption
+		- assume that probabilities are independent
+	- Conditional Probability  
+- Normalization - dividing each probability by the sum of both
+- Building a Spam Classifier
+- Project Spam Classifier
+- In short, the Bayes theorem calculates the probability of a certain event happening(in our case, a message being spam) based on the joint probabilistic distributions of certain other events(in our case, the appearance of certain words in a message). 
+-  It is composed of a prior(the probabilities that we are aware of or that is given to us) and the posterior(the probabilities we are looking to compute using the priors).
+
+# Aside
+- Accuracy, Precision, Recall
+
+**Accuracy** measures how often the classifier makes the correct prediction. It’s the ratio of the number of correct predictions to the total number of predictions (the number of test data points).
+
+**Precision** tells us what proportion of messages we classified as spam, actually were spam. It is a ratio of true positives(words classified as spam, and which are actually spam) to all positives(all words classified as spam, irrespective of whether that was the correct classification), in other words it is the ratio of
+
+`[True Positives/(True Positives + False Positives)]`
+
+**Recall(sensitivity)** tells us what proportion of messages that actually were spam were classified by us as spam. It is a ratio of true positives(words classified as spam, and which are actually spam) to all the words that were actually spam, in other words it is the ratio of
+
+`[True Positives/(True Positives + False Negatives)]`
+
+For classification problems that are skewed in their classification distributions like in our case, for example if we had a 100 text messages and only 2 were spam and the rest 98 weren't, accuracy by itself is not a very good metric. We could classify 90 messages as not spam(including the 2 that were spam but we classify them as not spam, hence they would be false negatives) and 10 as spam(all 10 false positives) and still get a reasonably good accuracy score. For such cases, precision and recall come in very handy. These two metrics can be combined to get the F1 score, which is weighted average of the precision and recall scores. This score can range from 0 to 1, with 1 being the best possible F1 score.
+
+# Support Vector Machines
+
+- Classification algorith. Finds the best possible boundary, the one that maintains the largest distance from the points.
+
+- Minimizing Distances
+	- Maximing the margin
+	- minimizing the error
+- Error Function Intuition
+	- include points in the margin as classification error
+- Perceptron Algorithm
+	- Error function will punish points according to distance to the main line (in the margin)
+	- error is the absolute value of wx + b
+	- gradient descent minimizes the error calculated in the error function to find the best fit 
+- Classification Error
+	- error increases linearly by one
+	- adding the result of the error caluclated for each the points in the margin 
+- Margin Error
+	- margin = 2/norm of W (sum of the squares of the components)
+	- error = |W|squared 
+	- norm = square root of the sum of the squares of the vectors in the margin
+	- norm of the vector w2 sqaured (same as l2 regularization)
+- Margin Error Calculation
+	- bias is the shift from origin
+	- shifting back to the origin removes bias
+	- simply doubling the distance from one marginal line to the main line 
+- Error Function
+	-  
+- The C Parameter
+	- Flexibility to decide how much error to allow
+	- Large C focuses on correctly classifying, small margin
+	- Small C allows some error, large margin
+	- Hyperparameter requires Grid Search
+- Polynomial Kernel 1
+	- x squared = 4 (two linear polynomials)
+	- Kernel Trick 
+- Polynomial Kernel 2
+	- Circular Boundary method
+	- Higher dimensions method
+	- polynomial function instead of linear
+- Polynomial Kernel 3
+	- x squared + y sqared = z
+	- SVM draws the best separating plane
+	- kernel - a set of functions that will come to help us determine a polynomial boundary
+	- degree of the polynomial kernel is a hyperparameter that we can train
+- RBF Kernel 1
+	- Polynomial line to create dimension
+	- convert to boundaries
+	- radial basis functions 
+	- 2x - 4y + 1z = -1
+- RBF Kernel 2
+	- higher dimension
+	- paraboloid intersected by a circle 
+- RBF Kernel 3
+	- Gamma Hyperparam
+	- large gama narrow curve
+	- small gama wide curve (paraboloid in high dimentions)
+	- Gaussian and Normal Distribution
+	- gamma = 1/2sigma squared 
+- SVMs in sklearn
+
+# Ensemble Methods
+- Bootstrap Aggregating
+		- An average of the results 
+	- Boosting 
+		- A weighted combination/average of the results 
+		- 
+- Bagging
+	- Weak Learners and Strong Learners
+	- Train a weak learner on a subset of data
+	- Never partition the data for subsets
+	- Voting, 2 or more votes wins, tiebreakers
+- AdaBoost
+	- Algorithm discovered in 1996
+	- 2nd learner focuses on 1st learners mistakes (punishing misclassification) 
+- Weighting the Data
+	- Minimizing the sum of weights of incorrectly classified points 
+- Weighting the Models
+	- 1
+		- Weighted by success/accuracy 
+	- 2
+		- Truth Model - Large Positive Model 1
+		- Liar Model - Large Negative Weight 0.5
+		- 50/50 - No weight 0
+	- 3 
+		- weight = natural logarithm * accuracy/1-accuracy
+		- weight = ln(#correct/#incorrect)
+		- zero denominator = infinity (always listen)
+		- zero numerator = -infinity (always do the opposite)
+- Combining the Models
+	- Weight the vote by the corresponding weight
+	- Sum of negative and positive weights
+	- Sum of weak learners 
+- AdaBoost in Sklearn
+	- 
+- Resources
