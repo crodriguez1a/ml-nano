@@ -360,6 +360,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 	-  Adding complexity of the model to error function
 	-  Calculating combined error (e.g., from each coeficient in polynomial)
 	-  L1 Regularization adds absolute value (coeficient) to the error 
+		-  L1 regularization is useful for feature selection, as it tends to turn the less relevant weights into zero.
 	-  Adds complexity to error to predict future error
 	-  Includes Lambda tuning
 	-  Tuning how much to punish complexity with parameter called lambda
@@ -367,6 +368,8 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 	-  L1 vs L2 See chart
 		- L1 (biggest difference)
 			- Feature Selection will reduce noise (removes irelevant columns)
+			- It tends to turn a lot of weights into zero, while leaving only the most important ones, thus helping in feature selection.
+
 		- L2 is used when most columns are relevant
 
 # Perceptron Algorithm
@@ -395,7 +398,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 - Perceptron Algorithm
 
 # Decision Trees
-
+- Can be used for multi-class or non-binary classification
 - Recommending Apps Example
 	- Base on previous data, recommend app to download 
 	- Adding nodes with traversal based on the most apparent patterns 
@@ -427,6 +430,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 		- too many decisions, overfitting  
 		- too many speficic boundaries
 	- Multiple (random) trees make predictions
+	- Increasing the number of trees results in each decision tree learning some aspect of the training data thereby reducing the likelihood of overfitting the data.
 - Hyperparameters
 	- Maximum Depth
 	- Minimum number of samples per leaf (to avoid having unbalanced nodes)
@@ -485,7 +489,7 @@ For classification problems that are skewed in their classification distribution
 
 # Support Vector Machines
 
-- Classification algorith. Finds the best possible boundary, the one that maintains the largest distance from the points.
+- Classification algorithm. Finds the best possible boundary, the one that maintains the largest distance from the points.
 
 - Minimizing Distances
 	- Maximing the margin

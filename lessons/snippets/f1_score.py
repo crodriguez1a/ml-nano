@@ -1,4 +1,4 @@
-from sklearn.metrics import make_scorer, f1_score
+from sklearn.metrics import make_scorer, fbeta_score
 from sklearn.model_selection import GridSearchCV
 
 clf = DecisionTreeClassifier(random_state=42)
