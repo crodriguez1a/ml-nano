@@ -619,3 +619,67 @@ For classification problems that are skewed in their classification distribution
 	- Local Minimum
 		- Initialization can change assignment
 		- You could have a bad local minimum, separating line could be misplaced during initialization.
+
+# Hierarchical and Density-based Clustering
+
+- K-means consideration
+	- Cases where you know the number of clusters
+	- Distance to centroid as a definition works better with sphere or hyper-spherical
+	- Does not work with crescent and other shapes, dense datasets
+- Other Clustering methods
+	- Hierarchical
+	- Density Based (datasets with noise), (two crescent) 
+- Hierarchical Clustering - single-link
+	- Choosing smallest distance between two clusters and attaching
+	- Looks at the closest point (distance)
+	- Creates a dendogram
+	- Requires number of clusters
+	- Can produce elongated clusters or lump together to much of the dataset
+- Single-link Clustering vs K-means
+	- Elongated clusters
+	- Two Crescent
+	- Two Rings
+	- sparse clusters
+	- works the same as k-means with dense clusters
+	- Dendograms can visualize n-dimensional (hyperdimensional) datasets
+- Complete-link, average-link, Ward (agglomerative clustering in scikit)
+	- Complete Link 
+		- Same way as single link
+		- Assumes each point is a cluster
+		- Meastures distance between points
+		- Looks at farthest distance between two points (opposite of single link)
+		- Looks at minimal distance between clusters, then groups the clusters
+	- Average Link
+		- Looks at distance between every point and finds the average
+	- Ward's Method (default)
+		- Calculates distance looking for a central point(average points). Subtracting (minimizing) variance already in cluster in each merging step.   
+- Hierarchical implementation
+	- `cluster.AgglomerativeClustering(n_clusters, linkage='ward') `
+	- Dendograms require scipy library
+	- Advantages
+		- visual representations are informative
+		- potent when data contains real hierachichal data
+		- sensitive to noise and outliers
+		- computationally intensive (not great with high dimensions)
+	- Applications
+		- Human microbiome  
+- **DBSCAN** (Density Based Spacial Clustering of Applications with Noise)
+	- Not every point is part of a cluster (noise)
+	- Epsilon - Search distance around points
+	- MinPts - min points to form a cluster
+	- Identifying Core Points, Border Points
+	- Shapes it performs well with (does not require no clusters)
+		- Two Crescents 
+		- Two Rings
+		- Dense clusters
+	- Advantages
+		- Don't need to specify no of clusters 
+		- Flexibility in shapes and sizes of clusters
+		- Can deal with outliers
+	- Disadvantages
+		- Border points that are reachable from two clusters
+		- Faces difficulties finding clusters of varying densities (use HDBSCAN instead)
+	- Applications
+		- Network Traffic
+		- Anomaly Detection 
+	

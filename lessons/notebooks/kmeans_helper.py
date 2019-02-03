@@ -17,7 +17,6 @@ def draw_scatterplot(x_data, x_label, y_data, y_label):
     ax.set_ylabel(y_label)
     ax.scatter(x_data, y_data, s=30)
 
-
 def draw_clusters(biased_dataset, predictions, cmap='viridis'):
     fig = plt.figure(figsize=(8,8))
     ax = fig.add_subplot(111)
@@ -26,10 +25,8 @@ def draw_clusters(biased_dataset, predictions, cmap='viridis'):
     ax.set_xlabel('Avg scifi rating')
     ax.set_ylabel('Avg romance rating')
 
-
     clustered = pd.concat([biased_dataset.reset_index(), pd.DataFrame({'group':predictions})], axis=1)
     plt.scatter(clustered['avg_scifi_rating'], clustered['avg_romance_rating'], c=clustered['group'], s=20, cmap=cmap)
-
 
 def clustering_errors(k, data):
     kmeans = KMeans(n_clusters=k).fit(data)
