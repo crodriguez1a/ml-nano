@@ -582,3 +582,40 @@ For classification problems that are skewed in their classification distribution
 - AdaBoost in Sklearn
 	- 
 - Resources
+
+# Unsupervised Learning
+
+- Unsupervised Learning
+	- Dataset without labels
+	- Finding clusters
+	- Finding shapes or one dimensional line
+	- dimensionality reduction
+- Clustering Movies
+	- no target labels given, but classification can still happen 
+- How Many Clusters?
+	- K-Means is the most used algo and happens in two steps
+		- Assign
+			- Which points are closer to the cluster center? Assign them accordingly.
+		- Optimize  
+			- Opt the total quadratic distance/length
+			- Move center to the most appropriate center where total distance is minimized.
+- Match Points with Clusters
+	- Iteratively Assigning and Optimizing 
+
+- K-Means Visualization
+	- https://www.naftaliharris.com/blog/visualizing-k-means-clustering/ 
+- Sklearn Challenges of k-means
+	- number of clusters
+	- usability
+	- suitability 
+	- n_clusters (most important)
+	- max_iter (assign and optimize iter) 300 is good value. It will typically terminate before then.
+	- no_init: different initilizations of the algo will produce unique clustering. K-means will provide the ensemble the of those clusters.
+- Limitations of k-means
+	- You have to figure out how many clusters to try
+- Limitations of k-means
+- Counterintuitive clusters
+	- Not every visualization of clusters is intuitive. Cluster centers (assignment) can be somewhat counterinutive. 
+	- Local Minimum
+		- Initialization can change assignment
+		- You could have a bad local minimum, separating line could be misplaced during initialization.
