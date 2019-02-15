@@ -1,7 +1,7 @@
 **Week of Dec 11, 2018**
 
 
-| Project	Suggested Deadline  | | 
+| Project	Suggested Deadline  | |
 | --- | --- |
 | Term Begins| 	Dec 11 |
 | Predicting Boston Housing Prices	| Jan 1 |
@@ -310,7 +310,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 - Fitting a line Through Data
 	- Moving closer to each of the points
 - Moving a Line (utilizing straight line equation)
-	- slope and intercept (parameters) y = w1(x) + w2 
+	- slope and intercept (parameters) y = w1(x) + w2
 	- w1 is slope
 	- w2 is intercept (vertical intersection)
 - Absolute Trick (taking into account horizontal distance)
@@ -325,7 +325,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 - Gradient Descent (Descrease an error function by walking along the negative of its gradient)
 	- Calculates Error from random line
 	- Moving the line decreasing error
-	- Using the Error function (using the derivative or gradient) 
+	- Using the Error function (using the derivative or gradient)
 - Mean Absolute Error (error function)
 	- y - y(hat)
 	- Sum of all the errors(absolute values) divided by m(number of points)
@@ -333,33 +333,33 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 	- y - y(hat) squared
 	- Average of series of squares 	
 - Minimizing Error Functions
-	- Gradient step is applied squared trick 
+	- Gradient step is applied squared trick
 - Mean vs Total Error
 	- How to decide? It doesn't matter because sum or total error is just a multiple of the mean squared error
 - Mini-batch Gradient Descent
 	- Batch vs Stochastic
 	- Stochastic is applying squared or absolute trick at every point one-by-one
-	- Batch is applying at every point at the same time 
+	- Batch is applying at every point at the same time
 	- Mini-batch splits data into small batches (for computational cost). Each batch is used to update weights.
 - Absolute Error vs Squared Error
 	- Average vs Sum
 - Higher Dimensions
 	- Fitting a plane
-	- n-1 dimensional hyperplane (n dimensions) 
+	- n-1 dimensional hyperplane (n dimensions)
 - Multiple Linear Regression
-	- Predictor is an "independent variable" 
+	- Predictor is an "independent variable"
 - Closed Form Solution
-	- Calculating weights and values in a Matrix of n dimensions 
+	- Calculating weights and values in a Matrix of n dimensions
 - Linear Regression Warnings
 	- Linear Regression Works Best When the Data is Linear
 	- Linear Regression is Sensitive to Outliers
 		- Do outliers point to a new trajectory or potential a quadratic or polynomial curve? If not that outliers could potentially be ignored.  
 - Polynomial Regression
-	- Consider higher degree polynomials (apply more weights) 
+	- Consider higher degree polynomials (apply more weights)
 - Regularization (make sure models don't overfit)
 	-  Adding complexity of the model to error function
 	-  Calculating combined error (e.g., from each coeficient in polynomial)
-	-  L1 Regularization adds absolute value (coeficient) to the error 
+	-  L1 Regularization adds absolute value (coeficient) to the error
 		-  L1 regularization is useful for feature selection, as it tends to turn the less relevant weights into zero.
 	-  Adds complexity to error to predict future error
 	-  Includes Lambda tuning
@@ -381,7 +381,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 	- wsub1xsub1+wsub2xsub2 + bias = 0
 - Higher Dimensions
 	- n-dimensional space
-	- Wx + b = 0 vector(W) will have n dimensions 
+	- Wx + b = 0 vector(W) will have n dimensions
 	- boundary is n-1 dimensional hyperplane
 - Perceptrons
 	- Building block of neural network
@@ -400,31 +400,31 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 # Decision Trees
 - Can be used for multi-class or non-binary classification
 - Recommending Apps Example
-	- Base on previous data, recommend app to download 
-	- Adding nodes with traversal based on the most apparent patterns 
+	- Base on previous data, recommend app to download
+	- Adding nodes with traversal based on the most apparent patterns
 	- Determining axes that would help establish thresholds for each nodes in the tree
 - Entropy (from Physics)
-	- Ability of particles to move around 
+	- Ability of particles to move around
 	- Solid (Low), Liquid (Medium), Gas (High)
 	- How data points can be re-organized
 	- Opposite is called Knowledge, How much do we know about a datasets homogeny. The more we know the higher the knowledge.
 - Entropy Formula 1
-	- High knowledge makes for easier prediction? 
+	- High knowledge makes for easier prediction?
 - Entropy Formula 2
-	- Probability of a group is the product of all individual probability 
+	- Probability of a group is the product of all individual probability
 - Entropy Formula 3
 	- Rule: The logarithm of product is the sum of the logarithms
 	- Definition of Entropy is the average of the logarithms
-	
+
 	```javascript
 	entropy = -(p1)*Math.log2(p1) -(p2)*Math.log2(p2)-(p3)*Math.log2(p3)
 	```
 - Multiclass Entropy
-	- Sum of all 
+	- Sum of all
 - Maximizing Information Gain
 	- Information gain = change in entropy
 	- Calculate entropy is data then children, difference between parent and average of children is information gain
-	- Alogrithm will choose a decision node based on the highest information gain 
+	- Alogrithm will choose a decision node based on the highest information gain
 - Random Forests
 	- problem with decision trees
 		- too many decisions, overfitting  
@@ -441,7 +441,7 @@ Make a table with all the possibilities of parameters and hyperparemeters for an
 Small minimum samples per leaf may result in leaves with very few samples, which results in the model memorizing the data, or in other words, overfitting. Large minimum samples may result in the tree not having enough flexibility to get built, and may result in underfitting.
 
 # Naive Bayes
-- Based on Conditional Probability 
+- Based on Conditional Probability
 
 - Guess the Person
 	- Initial guess is called the prior
@@ -457,7 +457,7 @@ Small minimum samples per leaf may result in leaves with very few samples, which
 		- normalize probablities divide by the sum of n  
 - Bayes Theorem
 	- re-calculating the probability of an event based on additional knowns
-	- Posterior Probabilities caclulated after we knew that R occurred 
+	- Posterior Probabilities caclulated after we knew that R occurred
 - False Positives
 	- rate error is larger than number of possibilities
 - Bayesian Learning
@@ -469,7 +469,7 @@ Small minimum samples per leaf may result in leaves with very few samples, which
 - Normalization - dividing each probability by the sum of both
 - Building a Spam Classifier
 - Project Spam Classifier
-- In short, the Bayes theorem calculates the probability of a certain event happening(in our case, a message being spam) based on the joint probabilistic distributions of certain other events(in our case, the appearance of certain words in a message). 
+- In short, the Bayes theorem calculates the probability of a certain event happening(in our case, a message being spam) based on the joint probabilistic distributions of certain other events(in our case, the appearance of certain words in a message).
 -  It is composed of a prior(the probabilities that we are aware of or that is given to us) and the posterior(the probabilities we are looking to compute using the priors).
 
 # Aside
@@ -499,19 +499,19 @@ For classification problems that are skewed in their classification distribution
 - Perceptron Algorithm
 	- Error function will punish points according to distance to the main line (in the margin)
 	- error is the absolute value of wx + b
-	- gradient descent minimizes the error calculated in the error function to find the best fit 
+	- gradient descent minimizes the error calculated in the error function to find the best fit
 - Classification Error
 	- error increases linearly by one
-	- adding the result of the error caluclated for each the points in the margin 
+	- adding the result of the error caluclated for each the points in the margin
 - Margin Error
 	- margin = 2/norm of W (sum of the squares of the components)
-	- error = |W|squared 
+	- error = |W|squared
 	- norm = square root of the sum of the squares of the vectors in the margin
 	- norm of the vector w2 sqaured (same as l2 regularization)
 - Margin Error Calculation
 	- bias is the shift from origin
 	- shifting back to the origin removes bias
-	- simply doubling the distance from one marginal line to the main line 
+	- simply doubling the distance from one marginal line to the main line
 - Error Function
 	-  
 - The C Parameter
@@ -521,7 +521,7 @@ For classification problems that are skewed in their classification distribution
 	- Hyperparameter requires Grid Search
 - Polynomial Kernel 1
 	- x squared = 4 (two linear polynomials)
-	- Kernel Trick 
+	- Kernel Trick
 - Polynomial Kernel 2
 	- Circular Boundary method
 	- Higher dimensions method
@@ -534,25 +534,25 @@ For classification problems that are skewed in their classification distribution
 - RBF Kernel 1
 	- Polynomial line to create dimension
 	- convert to boundaries
-	- radial basis functions 
+	- radial basis functions
 	- 2x - 4y + 1z = -1
 - RBF Kernel 2
 	- higher dimension
-	- paraboloid intersected by a circle 
+	- paraboloid intersected by a circle
 - RBF Kernel 3
 	- Gamma Hyperparam
 	- large gama narrow curve
 	- small gama wide curve (paraboloid in high dimentions)
 	- Gaussian and Normal Distribution
-	- gamma = 1/2sigma squared 
+	- gamma = 1/2sigma squared
 - SVMs in sklearn
 
 # Ensemble Methods
 - Bootstrap Aggregating
-		- An average of the results 
-	- Boosting 
-		- A weighted combination/average of the results 
-		- 
+		- An average of the results
+	- Boosting
+		- A weighted combination/average of the results
+		-
 - Bagging
 	- Weak Learners and Strong Learners
 	- Train a weak learner on a subset of data
@@ -560,17 +560,17 @@ For classification problems that are skewed in their classification distribution
 	- Voting, 2 or more votes wins, tiebreakers
 - AdaBoost
 	- Algorithm discovered in 1996
-	- 2nd learner focuses on 1st learners mistakes (punishing misclassification) 
+	- 2nd learner focuses on 1st learners mistakes (punishing misclassification)
 - Weighting the Data
-	- Minimizing the sum of weights of incorrectly classified points 
+	- Minimizing the sum of weights of incorrectly classified points
 - Weighting the Models
 	- 1
-		- Weighted by success/accuracy 
+		- Weighted by success/accuracy
 	- 2
 		- Truth Model - Large Positive Model 1
 		- Liar Model - Large Negative Weight 0.5
 		- 50/50 - No weight 0
-	- 3 
+	- 3
 		- weight = natural logarithm * accuracy/1-accuracy
 		- weight = ln(#correct/#incorrect)
 		- zero denominator = infinity (always listen)
@@ -578,9 +578,9 @@ For classification problems that are skewed in their classification distribution
 - Combining the Models
 	- Weight the vote by the corresponding weight
 	- Sum of negative and positive weights
-	- Sum of weak learners 
+	- Sum of weak learners
 - AdaBoost in Sklearn
-	- 
+	-
 - Resources
 
 # Unsupervised Learning
@@ -591,7 +591,7 @@ For classification problems that are skewed in their classification distribution
 	- Finding shapes or one dimensional line
 	- dimensionality reduction
 - Clustering Movies
-	- no target labels given, but classification can still happen 
+	- no target labels given, but classification can still happen
 - How Many Clusters?
 	- K-Means is the most used algo and happens in two steps
 		- Assign
@@ -600,14 +600,14 @@ For classification problems that are skewed in their classification distribution
 			- Opt the total quadratic distance/length
 			- Move center to the most appropriate center where total distance is minimized.
 - Match Points with Clusters
-	- Iteratively Assigning and Optimizing 
+	- Iteratively Assigning and Optimizing
 
 - K-Means Visualization
-	- https://www.naftaliharris.com/blog/visualizing-k-means-clustering/ 
+	- https://www.naftaliharris.com/blog/visualizing-k-means-clustering/
 - Sklearn Challenges of k-means
 	- number of clusters
 	- usability
-	- suitability 
+	- suitability
 	- n_clusters (most important)
 	- max_iter (assign and optimize iter) 300 is good value. It will typically terminate before then.
 	- no_init: different initilizations of the algo will produce unique clustering. K-means will provide the ensemble the of those clusters.
@@ -615,7 +615,7 @@ For classification problems that are skewed in their classification distribution
 	- You have to figure out how many clusters to try
 - Limitations of k-means
 - Counterintuitive clusters
-	- Not every visualization of clusters is intuitive. Cluster centers (assignment) can be somewhat counterinutive. 
+	- Not every visualization of clusters is intuitive. Cluster centers (assignment) can be somewhat counterinutive.
 	- Local Minimum
 		- Initialization can change assignment
 		- You could have a bad local minimum, separating line could be misplaced during initialization.
@@ -632,7 +632,7 @@ For classification problems that are skewed in their classification distribution
 	- Does not work with crescent and other shapes, dense datasets
 - Other Clustering methods
 	- Hierarchical
-	- Density Based (datasets with noise), (two crescent) 
+	- Density Based (datasets with noise), (two crescent)
 - Hierarchical Clustering - single-link
 	- Choosing smallest distance between two clusters and attaching
 	- Looks at the closest point (distance)
@@ -647,7 +647,7 @@ For classification problems that are skewed in their classification distribution
 	- works the same as k-means with dense clusters
 	- Dendograms can visualize n-dimensional (hyperdimensional) datasets
 - Complete-link, average-link, Ward (agglomerative clustering in scikit)
-	- Complete Link 
+	- Complete Link
 		- Same way as single link
 		- Assumes each point is a cluster
 		- Meastures distance between points
@@ -667,17 +667,18 @@ For classification problems that are skewed in their classification distribution
 		- computationally intensive (not great with high dimensions)
 	- Applications
 		- Human microbiome  
+
 - **DBSCAN** (Density Based Spacial Clustering of Applications with Noise)
 	- Not every point is part of a cluster (noise)
 	- Epsilon - Search distance around points
 	- MinPts - min points to form a cluster
 	- Identifying Core Points, Border Points
 	- Shapes it performs well with (does not require no clusters)
-		- Two Crescents 
+		- Two Crescents
 		- Two Rings
 		- Dense clusters
 	- Advantages
-		- Don't need to specify no of clusters 
+		- Don't need to specify no of clusters
 		- Flexibility in shapes and sizes of clusters
 		- Can deal with outliers
 	- Disadvantages
@@ -685,5 +686,179 @@ For classification problems that are skewed in their classification distribution
 		- Faces difficulties finding clusters of varying densities (use HDBSCAN instead)
 	- Applications
 		- Network Traffic
-		- Anomaly Detection 
-	
+		- Anomaly Detection
+
+# Gaussian Mixture Models
+
+- GMM Clustering
+	- Every point belongs to different clusters but at different levels of membership
+	- Works well with tiger strips
+	- Turning data into knowledge
+	- Assumes that each cluster follows a certain statistical distribution
+	- Gaussian Distribution
+		- test scores
+		- height
+- Gaussian Distribution
+	- Histogram helps plot distribution (bell curve)
+	- Mean/Average
+	- Standard Deviation
+- GMM Clustering in one dimension
+	- Mixture of more than one gaussian distribution
+- Gaussian Distribution in 2D
+	- Example of two test scores per student (Mean and SD)
+	- Multivariate Gaussian Distribution (more than one variable)
+	- Concentric Circles(elipse) Visualization
+- GMM in 2D
+	- Made up of 2 separate Gaussian Distributions
+- Expectation Maximization Algorithm
+	- Initialize K Gausian Distributions
+	- Soft-cluster data (expectation or e step)
+	- Re-estimate the gaussian (maximization or m)
+	- Evaluate log-likelihood for convergence
+	- Repeat step 2 until converged
+	- Example
+		- Step 1 requires finding mean and std deviation for each distributions by running a k-means
+		- Step 2 Soft Clustering (probability density function)
+			- Uses Z (latent or hidden variable)
+		- Step 3 Maximization Step
+			- New gaussian parameters with inputs from step 2
+			- New Mean comes from calculating weighted average of cluster points
+			- Variance with weight as coeficient
+			- Repeat steps until convergence
+		- Step 4 Log-likelihood
+			- The higher the log-likelihood the higher the confidence of membership
+			- Mixin Coeficient
+			- Mean
+			- Variance
+			- Until Convergence
+		- Spherical Covariance
+			- Covariance Matrix (elipsis, rotation) vs spherical
+		- Initialization is important (k-means)
+- GMM Implementation
+	- Mixture library
+	- n_components(clusters)
+	- fit and predict
+- GMM Examples & Applications
+	- Advantages
+		- Soft clustering (sample membership)
+			- classifying documents
+		- Cluster shape flexibility
+	- Disadvantages
+		- Sensitive to init
+		- possible to converge to local optimum
+		- slow convergence
+	- Applications
+	   - Sensor Data (accelerometer, velocity)
+	   		- Office activity vs commuting
+	   		- Bike vs Walk
+	   	- Astronomy (stars, pulsars)
+	   	- Biometrics
+	   		- Speaker Verification
+	   		- Fingerprints
+	   	- Computer Vision
+	   		- Each Pixel becomes a GMM
+	   		- Can remove foreground from background
+
+	   	- Paper: Nonparametric discovery of human routines from sensor data [PDF]
+
+		- Paper: Application of the Gaussian mixture model in pulsar astronomy [PDF]
+
+		- Paper: Speaker Verification Using Adapted Gaussian Mixture Models [PDF]
+
+		- Paper: Adaptive background mixture models for real-time tracking [PDF]
+
+Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
+
+- Cluster Analysis Process
+	- From data to knowledge
+	- feature selection/extraction
+		- reducing dimensions
+		- Extraction is transforming using PCA  
+	- Choose a clustering algorithm
+		- Choose a proximity measure
+			- documents or word embeddings (use cosign distance)
+	- Cluster Validation
+		- visualize result
+		- scoring method (index)
+	- Results Interpretation
+		- Insights (domain expertise)    
+- Cluster Validation
+	- Procedure of evaulating the results objectively and quantitavely
+	- External indices (labeled data)
+	- Internal Indices (un-labeled/un-supervised)
+	- Relative Indices (which of two clustering methods is better)
+	- Compactness, Separability  
+- External Validation Indices
+	- When we have labeled data
+	- Provide a score [0,1] or [-1,1]
+	- Adjusted Rand Index
+		- Comparing clustering to labeled data
+		- number of pairs in same vs different cluster		- original labels are called ground truth
+		- calculates closeness to grounded truth
+		- ARI does not care what label we assign a cluster, as long as the point assignment matches that of the ground truth.
+- Internal Validation Indices
+	- Unspervised
+- Silhouette Coefficient
+	- score [-1,1]
+	- Coefficient for each point in the dataset
+		- a = average distance to other samples
+		- b = average distance to samples in closest neighboring cluster
+		- done for every point and finds the average
+	- Can be used for finding K
+		 - Can be used to validate visualized intuition
+		 - Penalizing clusters without enough distance between them
+		 - Silhouette coefficient
+			- Used to compare clustering algorithms
+			- not the index we should use for DBScan, no concept of noise. SC rewards dense compact clustering.
+			- not built to carve out concentric circles of patterns
+			- works better with density
+		- Internal Index for density based DBCV
+	   - Since we can calculate the silhouette coefficient for each point, we can just average them across a cluster or an entire dataset.
+- Lab
+
+# Feature Scaling
+
+- Re-scaling values to represent values between 0,1 (percentage)
+- pros - reliable number in ouput
+- cons - outliers may skew ouput, extreme values
+- SVM, and K-means require scaling
+	- Distance calculation trades off one dimension against the other
+	- Anything measuring distance in 2D
+
+# PCA - Principal Component Analysis
+
+- Feature set compression
+- One dimensional vs n dimensional data
+- Data where only one axis (feature) provides information can considered one-dimensional
+- PCA specializes on shift and rotation from the coordinates system
+- PCA finds a new coordinate system that centers itself along the data, moves or rotates the x axis, and further axes as well
+- Returns Spread value for these axes, eigenvalue, importance vector, how important to take each vector
+- Dominant Axes - Major axis dominates" means that there's much more variation in one dimension than the other.
+- Measurable vs Latent Features
+	- Latent Variables - can't be measured directly but driven the phenomenon that you're measuring behind the scenes. Not exactly measurable with a single number.
+	- Measurable features can be assigned a value (number) directly.
+	- Feature Selection
+		- SelectKBest - when you can infer the number of latent features that will be important. Providing that number as K will output the K number of features with the highest K score
+		- SelectPercentile - outputs the top features based on there score's percentage.
+	- Preserving Information (Compression)
+		- Composite Features
+		- PCA to reduce dimensionality
+		- powerful independently for unsupervised learning
+		- Projection projects principal component to one dimension
+		- Variance - willingness or flexibility of an algorith to learn
+		- Statistical Viariance - roughly the "spread" of a data distribution (similar to standard deviation)
+		- PCA is determine by the direction of maximum variance (direction with longest variance)
+	- Maximal Variance and Information Loss
+		- Information loss is the distance between the points and their projected positions on the principal components
+		- Maximizing variance will minimize distance from the old point to the new transformed point or Minimizing the Information Loss
+	- Second PCA Strategy (unsupervised)
+		- combining features (picking out latent features)
+		- powerful unsupervised learning technique for when no domain knowledge is available
+	- Review/Definition of PCA
+		- systemized way to transform input features into principal components
+		- use PCs as new features
+		- PCs are directions in data that maximaize variance (minimize loss) when you project/compress down on to them
+		- more variabce of data along a PC, higher that PC is ranked
+		- most variance/most information -> first PC
+		- second-most variance (most overlapping w/first PC) -> second pc
+		- Number of PCs = no of input features
