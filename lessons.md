@@ -873,3 +873,54 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 			
 	- PCA for Facial Recognition
  		- eigenfaces - reducing dimensions for facial recognition
+
+# Random Projection and ICA
+
+- Random Projection
+	- More computationally efficient that PCA
+	- Good for more very large dimensions
+	- Chooses a random line instead of a line that represents maximize variance (minimize loss) (eg.,pca).
+	- Simply multiplies by a random matrix
+	- From d dimensions to k dimensions
+	- Based on the Johnson-Lindenstrauss lemma
+		- n points in high dimensional Euclideanspace can mapped down to a space in much lower dimensions preserving the distance between points to a large degree.
+	- epsilon is our threshold for error related to distance between points 
+- SparseRandomProject is little more performant that gaussian
+- Independent Component Analysis (ICA)
+	- Similar to PCA and RP, except that it assumes that features are mixtures of independent sources
+	- Cocktail Party Problem
+		- With a three dimensional dataset, known number of components expected.
+- FastICA Algorithm
+	- Approximating or finding the best W (weight for each component)
+	- Helsinki University Paper
+	- Sklearn implementation steps
+		1. X, center and whiten
+		1. intial random weight (W)
+		1. W contains vectors
+		1. decorrelate W, preventing convergence
+		1. repeat step 3 until convergence 
+	- Assumptions
+		- Components should be statistically independent
+		- Non Gaussian distributions
+			- Distribution of a sum of independent variables tends towards a Gaussian distribution
+			- W maximizes non-gaussianity
+		- Quiz
+			- ICA needs as many observations as the original signals we are trying to separate. 	
+- ICA Lab
+	- FastICA
+	- X can be a zipped list of arrays 
+- ICA Applications
+	- Medical Scanners
+		- EEG, MEG
+		- FMRI
+	- Financial Data
+		- Factor model in finance
+			- Stock signals
+			- What caused stocks to rise and fall
+		-  Cash Flow of 5 stores Time Series
+			- First component captured spike during Christmas time    
+
+- From the unsupervised learning assessment
+	- Note to not confuse K-nearest neighbors and K-means clustering. K-nearest neighbors is a classification algorithm, which is a subset of supervised learning. K-means is a clustering algorithm, which is a subset of unsupervised learning. 
+	- Note to not confuse K-nearest neighbors and K-means clustering. K-nearest neighbors is a classification algorithm, which is a subset of supervised learning. K-means is a clustering algorithm, which is a subset of unsupervised learning. 
+	- When evaluating how many components to include in PCA, what is a good rule of thumb for the total amount of variance to be captured by the kept components? 80%
