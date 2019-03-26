@@ -1003,3 +1003,5 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 - **Pre-Lab: Gradient Descent**
 	-  
 - **Notebook: Gradient Descent**
+- Perceptron vs Gradient Descent
+	- Perceptron doesn't change weights for correctly classified points, while Gradient descent takes steps in either direction changing weights for both correctly and incorrectly classified points. 
