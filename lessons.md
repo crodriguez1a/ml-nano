@@ -84,8 +84,6 @@ Optimizing the location of the center of a cluster of data points. Useful for wh
 When we don't know how many clusters we want to end up with, controlling cluster distance.
 
 
-
-
 | W2 | | |
 | --- | --- | --- |
 | Time | Activity | Notes |
@@ -859,7 +857,7 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 		- systemized way to transform input features into principal components
 		- use PCs as new features
 		- PCs are directions in data that maximaize variance (minimize loss) when you project/compress down on to them
-		- more variabce of data along a PC, higher that PC is ranked
+		- more variance of data along a PC, higher that PC is ranked
 		- most variance/most information -> first PC
 		- second-most variance (most overlapping w/first PC) -> second pc
 		- Number of PCs = no of input features
@@ -873,6 +871,8 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 			
 	- PCA for Facial Recognition
  		- eigenfaces - reducing dimensions for facial recognition
+ 	- Explained Variance Ratio
+ 		- The first component has x % variation of the data, second component has x % of the data, and so on.
 
 # Random Projection and ICA
 
@@ -924,3 +924,82 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 	- Note to not confuse K-nearest neighbors and K-means clustering. K-nearest neighbors is a classification algorithm, which is a subset of supervised learning. K-means is a clustering algorithm, which is a subset of unsupervised learning. 
 	- Note to not confuse K-nearest neighbors and K-means clustering. K-nearest neighbors is a classification algorithm, which is a subset of supervised learning. K-means is a clustering algorithm, which is a subset of unsupervised learning. 
 	- When evaluating how many components to include in PCA, what is a good rule of thumb for the total amount of variance to be captured by the kept components? 80%
+
+
+# Deep Learning
+
+## Deep Neural Networks
+
+- DNNs can find a more complex line that separates data points as opposed to normal neural networks
+
+- **Non Linear Regression**
+
+	- Redefine perceptron algorithm to work with other shapes
+
+- **Error Function**
+	- Gradient Descent - shortest path to minimum error
+	- Many times a local minimum will help solve our problem
+	- Discrete vs Continuous Gradient Descent
+   		- Our error function cannot be discrete and should be continuous
+	 	- Aztec pyramid vs Mount Errorist
+
+- **Log-loss Error Function**
+		
+	- Assigning penalties to misclassified points
+	- Misclassified points will add larger values to error sum
+	- Reducing error to minimum possible value
+	- Conditions to apply Gradient Descent
+		- error function should be differentiable
+		- error function should be continuous   
+
+- **Discrete vs Continuous**
+	
+	- Moving from discrete predictions to continuous 
+	- Discrete answers are yes/no
+	- Continuous answers will be a number usually between 0 and 1
+		- probability is a function of the distance of the line
+		- Continuous predictions use sigmoid function whereas discrete predictions use step functions as its activation function
+		- Sigmoid function
+			- for large positive numbers will give values close to 1
+			- for large negative numbers will give values close to 0
+			- values close to 0 will give you values close 0.5
+
+- **Multi-Class Classification and Softmax**
+	- Dog, Cat, Bird
+	- Softmax is the equivalent of the sigmoid activation function
+	- Scaling class score using the exponential function to translage scores as probability
+- **One-Hot Encoding** 
+	-  One variable for each of the classes set to a binary value
+- **Maximum Likelihood**
+	- We pick the model that gives the existing labels the highest probability
+	- probablity of i = yhat = signmoid (wx+b)
+	- calculates the product of the probababilities for all classes
+	- Maximize probability
+- **Maximizing Probabilities**
+	- Minimizing Error
+	- Convert products into sums with log `log(ab) = log(a) + log(b)` 
+- **Cross-Entropy 1**
+	- Sum of the natural log of each probability
+	- take the negative of logarithm of the probabilities or cross-entropy
+	- pair each logarithm with the point where it came from, we get error
+	- Minimizing cross entropy
+	- cross-entropy is the connection between probability and error
+- **Cross-Entropy 2**
+	- High likelihood means small cross-entropy
+	- Small likelihood means large cross-entropy
+	- cross-entropy tells us when two vectors are similar or different
+- **Multi-Class Cross Entropy**
+	- negative of the summation of y - n and J - m 
+- **Logistic Regression**
+	- multi-class, we use cross entropy
+	- binary, we use error function 
+- **Gradient Descent**
+	- Error function is a function of the weights
+	- Gradient is the vector formed by the derivatives of the function 
+	- If a point is well classified, we will get a small gradient. And if it's poorly classified, the gradient will be quite large.
+- **Logistic Regression Algorithm**
+	- Similar to Perceptorn algorithm
+	- assigns weights to individual points to pull the line closer to those points 
+- **Pre-Lab: Gradient Descent**
+	-  
+- **Notebook: Gradient Descent**
