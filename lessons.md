@@ -1005,3 +1005,39 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 - **Notebook: Gradient Descent**
 - Perceptron vs Gradient Descent
 	- Perceptron doesn't change weights for correctly classified points, while Gradient descent takes steps in either direction changing weights for both correctly and incorrectly classified points. 
+
+# Deep Neural Networks
+
+- Non-linear Data
+
+- Continuous Perceptrons
+	- Perceptron returns the probability of a point being classified
+
+- Non-Linear Models
+	- Not separable with a line
+	- Create a probability function with a curve that represents a set of points that are equally likely to be "blue" or "red"
+
+- Neural Network Architecture
+	- Combine two linear models into a non linear model
+	- Almost like doing arithmetic on two models
+	- To combine, we apply sigmoid function to scale sum of two points from each linear model to create a non-linear combination.
+	- You can use weight and bias with each linear model when combining.
+	- Combining NNs uses a similar approach to Perceptrons 
+	- Layers
+		- Input Layer
+		- Hidden (Combination) Layer
+		- Output Layer
+	- Multi class simply uses multiple outputs
+		- Use softmax to obtain well-defined probabilities 
+
+- Feedfoward 
+	- The process of continously applying combinations (matrix multiplications) to an input vector  using sigmoid until reach the desired output.
+	- Training neural networks
+		- Define the error function
+		- A measure of the error of each point 
+
+- Backpropagation
+	- Running the feedforward operation backwards (backpropagation) to spread the error to each of the weights.
+	- Use this to update the weights, and get a better model.
+	- Continue this until we have a model that is good.
+	
