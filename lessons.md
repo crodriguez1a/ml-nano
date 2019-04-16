@@ -1041,3 +1041,205 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 	- Use this to update the weights, and get a better model.
 	- Continue this until we have a model that is good.
 	
+## Training Optimization
+
+- Early Stopping Algorithm
+	- We run Gradient Descent until training error stops decreasing. That's how we determine the number of epochs. At the point where increasing begins, we stop.
+
+- Regularization
+	- applying sigmoid to small values, we get a shallow slope, whereas larger values create a steeper slope (derivatives are more extreme) and give less room for gradient descent.
+	- To prevent overfitting, we want to penalize high coeficients (utilizing lambda)
+		- L1 sum of absolute values of the weights
+			- Good for feature selection
+			- Sparse vectors, small weights go to zero in turn minimizing the set 
+		- L2 sum of squares of the weights
+			- tries to maintain all waits homogeneously small
+			- used the most
+			- better for training models 
+
+- Dropout
+	- One part of the network with large weights dominates all of the training
+	- to solve, we'll turn off parts of the network and let other nodes train
+	- In a particular epoch we may not want to use certain nodes
+	- We do this by calculating the probability that each node gets dropped at a particular epoch 
+	
+- Local Minima
+	- Not being able to descend any further at a particular point in the curve
+
+- Vanishing Gradient
+	- Derivative tells us in what direction to move so if it is close to zero, it becomes unhelpful and training difficult making steps to small
+
+- Other Activation Functions
+	- Fixing Vanishing Gradient and Local Minima
+	- Hyperbolic Tangent Function (larger derivatives)
+	- Rectified Linear Unit (ReLU) maximum between x and 0. Derivative is always one if number is positive. Binary. Also increases derivative size.
+
+- Batch vs Stochastic Gradient Descent
+	- Number of steps = number of epochs
+	- in each epoch, all of the data is run through the network
+	- calculate error, and backpropogate the error
+	- this is done for all the data
+	- if data is large, these epochs become huge matrix computations
+	- we don't need to use all the data for each step/epoch
+	- with Stochastic, we create a window (subset of data) 
+	- We can split the data into batches and run them through, calculate error and their gradients and them backpropogate, creating an better boundary region. More steps are less accurate, but that's okay during training.
+
+- Learning Rate Decay
+	- If your learning rate is too big, you're taking huge steps, you may miss the minimum and keep going.
+	- Decrease rate for smaller steps are more accurate and will arrive at local minimum 
+
+- Random Restart
+	- Start from a few different random places and run gradient descent from all of them arrive at a pretty good local minimum
+
+- Momentum
+	- solving the local minimum problem
+	- taking the average of the last few steps when derivative becomes close to zero
+	- requires weighting the steps so that more recent steps are more relevant
+	- Once we get to the global minimum, we may overshoot but not by much
+
+- Optimizers in Keras
+
+	**SGD**
+	This is Stochastic Gradient Descent. It uses the following parameters:
+	
+	Learning rate.
+	Momentum (This takes the weighted average of the previous steps, in order to get a bit of momentum and go over bumps, as a way to not get stuck in local minima).
+	Nesterov Momentum (This slows down the gradient when it's close to the solution).
+	
+	**Adam**
+	Adam (Adaptive Moment Estimation) uses a more complicated exponential decay that consists of not just considering the average (first moment), but also the variance (second moment) of the previous steps.
+	
+	**RMSProp**
+	RMSProp (RMS stands for Root Mean Squared Error) decreases the learning rate by dividing it by an exponentially decaying average of squared gradients.   	 
+- Neural Network Regressions
+	- Replacing the output sigmoid function with a an error function for classification
+	- Combining linear functions with a relu, or sigmoid or tanh
+	- We can use networks for regression just by removing the final activation function (no probability) 
+
+Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-layers-and-nodes-in-a-neural-network/
+
+# Convolutional Neural Networks
+
+- Alexis Cook
+
+- Applications of CNNs
+	- NLP
+		- Recurrent NN used more frequently 
+	- Computer Vision
+		- Teaching agents to play video games 
+	- Voice User Interfaces
+		- Google WaveNet, text to voice  
+	- Sentiment
+	
+- How Computers Interpret Images
+	- MNIST Database
+		- 70,000 images of hand-written digits
+	- Pixels are interpreted as a matrix
+		- 255 for white
+		- 0 for black
+		- preprocessing - images are rescaled, labels are one-hot encoded (using vector index)
+		- We flatten our matrix to a vector
+		- feed to input layer of an MLP (multi-layer perceptron) in keras
+		
+- MLPs for Image Classification
+	- two hidden layers with the same number of nodes, with relu activation
+	- relu interprets values as binary
+	- Flatten is an api in Keras
+
+- Categorical Cross-Entropy (loss function)
+	- Good for multi-class
+	- compares models predection to true label (one-hot)
+	- returns a higher value for the loss
+	- Loss is lower when a label and prediction agree
+	- Loss is higher when label and prediction disagree
+	- Try to find params that minimize the loss function
+	- Find minimum of the loss using an implementation of Gradient Descent as an optimizer
+		- Stochastic Gradient Descent
+		- Momentum
+		- Adagrad
+		- Adadelta
+		- Rmsprop 
+
+- Model Validation in Keras
+	- Its not always clear how many layers to use, how many nodes to includes, or how many epochs
+	- Good to split into Training, Validation, Test sets
+	- Saving weights from each potential architecture for comparison using ModelCheckpoint class, save_best_only=True for only the most accurate weights, you can pass the checkpoint as a param to the fit method
+	- fit method accepts split as a param
+
+- When do MLPs (not) work well?
+	- MLP requires deterministic spacial awareness
+	- CNN understands spacial data based on proximity 
+
+- Mini Project
+	- Overfitting is detected by comparing the validation loss to the training loss. If the training loss is much lower than the validation loss, then the model might be overfitting.
+	- Deep learning is not well-understood, and the practice is ahead of the theory in many cases. If you are new to deep learning, you are strongly encouraged to experiment with many models, to develop intuition about why models work.
+	- **Tuning**
+		- [x] Increase (or decrease) the number of nodes in each of the hidden layers.  Do you notice evidence of overfitting (or underfitting)?
+		- [x] Increase (or decrease) the number of hidden layers.  Do you notice evidence of overfitting (or underfitting)?
+		- [x] Remove the dropout layers in the network.  Do you notice evidence of overfitting?
+	   - [x] Remove the ReLU activation functions.  Does the accuracy decrease?
+		- [x] Remove the image pre-processing step with dividing every pixel by 255.  Does the accuracy decrease?
+		- [x] Try a different optimizer, such as stochastic gradient descent.
+		- [ ] Increase (or decrease) the batch size. 
+
+- Local Connectivity
+	- Techniques for complex images or datasets
+	- MLPs use a lot of parameters
+	- Only use fully connected layers
+	- Only accept vectors as input
+		- Throwing away all 2d information in favor of flattening
+	- CNNs
+		- connections between layers are informed by sparsely connected layers
+		- accepts matrix as input   
+		- hidden nodes only need to be connected to relevant parts of an image (regional breakdown)
+		- Less prone to overfitting
+		- Truly understand how to tease out patterns contained in image data
+		- Selectively and conservatively add weights to the model
+		- each of the hidden nodes can share a common set of weights
+		- every pattern that is relevant to understand ing the image can appear anywhere (eg. high res)
+		- positioning or placement of an image in a window shouldn't matter
+- Convolutional Layers 1
+	- Uses locally connected layers to inform convolutional layers
+	- First select a width and height that define the convolution window
+	- slide the window over the matrix and define a collection of pixels to which we connect a hidden node (in a convolutional layer
+	- sum of product of weights for each node (with bias)
+	- convolutional layers always receive relu activation function
+	- weights are represented in a grid (aka Filter)
+	- multiply each input node with corresponding weights, then apply relu
+	- can interpret patterns with visualizing the filters
+	- filter is a window of weights applied to a region of the image 
+- Convolutional Layers 2
+	- Filters are needed for each type of image charasteristics
+	- Common to have tens to hundreds of window collections each corresponding to their own filter
+	- filters are convolved across the height and width of image to produce an entire collections of nodes inside the convolutions layer
+	- each filter in the collection is called an activation map
+	- collectives are called feature maps
+	- when visualizing, we can see filtered images
+	- these filters discovering vertical or horizontal edges (edge detectors)
+	- greyscale are interpreted as a 2d array (width, height)
+	- color are interpeted as 3d array (width, height, depth)
+	- to peform convolution on a color image, filter becomes three dimensional as well
+	- Same calculation as before but with more dimensions
+	- each 3d filter is really just a stack as 3 2d layers
+	- filters can be fed as inputs to new layers
+	- Dense layers are fully connected whereas convolutional layers are only connected to a small subset of the previous layers
+	- both use inference the same way, weights and bias are intially randomly generated, thusly the filters and patters also
+	- always specify a loss function
+	- multi-class -> categorical crossentropy loss
+	- cnn determines what patterns in needs to detect depending on the loss function
+	- with cnns we don't specify the values of filters or what kind of patterns to detect
+- Stride and Padding
+- Convolutional Layers in Keras
+- Quiz: Dimensionality
+- Pooling Layers
+- Max Pooling Layers in Keras
+- CNNs for Image Classification
+- CNNs in Keras: Practical Examples
+- Mini Project: CNNs in Keras
+- Image Augmentation in Keras
+- Mini Project Image Augmentation
+- Groundbreaking CNN Architecture
+- Visualizing CNNs 1
+- Visualizing CNNs 2
+- Transfer Learning
+- Transfer Learning in Keras
