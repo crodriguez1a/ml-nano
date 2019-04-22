@@ -1229,12 +1229,51 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 	- cnn determines what patterns in needs to detect depending on the loss function
 	- with cnns we don't specify the values of filters or what kind of patterns to detect
 - Stride and Padding
+	- Control the behavior of a convolutional layer by specifying the number of filters and the size of each filter
+	- to increase the number of nodes increase the number of filters
+	- increase size of detected patterns increase filters
+	- Stride is the amount to which the filter moves over the image
+		- reduce the window size for filter to move
+	- dealing with nodes where filter extends beyond the image
+		- you can pad with zeros to have equal coverage or simply sacrifice the data in those nodes
+		- can be set to `valid` or `same`
+			- valid will lose nodes
+			- same will pad with zeros 
 - Convolutional Layers in Keras
+	- see snippet 
 - Quiz: Dimensionality
-- Pooling Layers
-- Max Pooling Layers in Keras
+- Pooling Layers (reducing dimensionality)
+	- Take covolutional layers as input
+	- convolutional layers are also feature maps and require a large number of filters
+	- higher dimensionality means more parameters which can lead to overfitting
+	- pooling layers help control dimensionality
+	- Max pooling layers take a stack of feature maps as input
+		- Computes a small window size and stride to reduce dimensionality
+		- moderate reduction in size (half as tall and half as wide)
+	- Global Average Pooling Layer
+		- Each feature map is reduced to a single value
+		- From 3d array to a vector
 - CNNs for Image Classification
+	- Color images have a depth of 3 (rgb), black and white has a depth of 1
+	- Convolutional layers will be used to make the array deeper as it moves through the sequence
+	- Max pooling layers will be used to decrease the  spacial diumensions
+	- Should discover hierarchies of spacial patterse
+	- padding is better when set to same, and strides to 1
+	- We'll want to increase filters as layers increase
+	- relu activation in all layers
+	- witout max pooling we will only increase the depth of the array without modifying width and height
+	- to reduce the height and width, we add max pooling layers
+	- goal is an array that is quite deep but relatively small height and width
+	- This will gradually takes spatial data and record the contents of the image, this removes the need for pixels to remain together in order to be interpreted
+	- Finall we can flatten and feed to one or more fully connected layers
+	- reminder: output layers always match number of classes 
+	- Things to Remember
+		- Always add a ReLU activation function to the Conv2D layers in your CNN. With the exception of the final layer in the network, Dense layers should also have a ReLU activation function.
+		- When constructing a network for classification, the final layer in the network should be a Dense layer with a softmax activation function. The number of nodes in the final layer should equal the total number of classes in the dataset.
+		- Have fun! If you start to feel discouraged, we recommend that you check out Andrej Karpathy's tumblr with user-submitted loss functions, corresponding to models that gave their owners some trouble. Recall that the loss is supposed to decrease during training. These plots show very different behavior :).
+
 - CNNs in Keras: Practical Examples
+	- CIFAR 10 Database 
 - Mini Project: CNNs in Keras
 - Image Augmentation in Keras
 - Mini Project Image Augmentation

@@ -15,6 +15,7 @@ pandas = "*"
 matplotlib = "*"
 seaborn = "*"
 keras = "*"
+tensorflow = "*"
 
 [requires]
 python_version = "3.7.2"
