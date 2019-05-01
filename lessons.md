@@ -1068,7 +1068,7 @@ Video: https://www.youtube.com/watch?v=lLt9H6RFO6A
 
 - Vanishing Gradient
 	- Derivative tells us in what direction to move so if it is close to zero, it becomes unhelpful and training difficult making steps to small
-
+	- Both sigmoid and tanh are susceptible to vanishing gradient
 - Other Activation Functions
 	- Fixing Vanishing Gradient and Local Minima
 	- Hyperbolic Tangent Function (larger derivatives)
@@ -1208,6 +1208,7 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 	- multiply each input node with corresponding weights, then apply relu
 	- can interpret patterns with visualizing the filters
 	- filter is a window of weights applied to a region of the image 
+	- Decreasing the number of filters in a convolutionaly layer can help reduce overfitting
 - Convolutional Layers 2
 	- Filters are needed for each type of image charasteristics
 	- Common to have tens to hundreds of window collections each corresponding to their own filter
@@ -1220,7 +1221,7 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 	- color are interpeted as 3d array (width, height, depth)
 	- to peform convolution on a color image, filter becomes three dimensional as well
 	- Same calculation as before but with more dimensions
-	- each 3d filter is really just a stack as 3 2d layers
+	- each 3d filter is really just a stack of 3 2d layers
 	- filters can be fed as inputs to new layers
 	- Dense layers are fully connected whereas convolutional layers are only connected to a small subset of the previous layers
 	- both use inference the same way, weights and bias are intially randomly generated, thusly the filters and patters also
@@ -1276,9 +1277,116 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 	- CIFAR 10 Database 
 - Mini Project: CNNs in Keras
 - Image Augmentation in Keras
+	- Invariant representation of the image
+	- Size, position, or angle should not matter 
+	- Scale Invariance (size)
+	- Rotation Invariance (angle)
+	- Translation Invariance (shifting)
+		- Max pooling layers allows for translation invariance
+		- Computers can only see a matrix of pixels
+		- Data augmentation (invariance and prevents overfitting)
+			- Rotation Invariance, add images to training set with random rotation
+			- Translation, add random translations
+			- use `datagen.flow` to add training subset with augmented images
+			- Note on steps_per_epoch
+
+				- Recall that fit_generator took many parameters, including
+				
+				```
+				steps_per_epoch = x_train.shape[0] / batch_size
+				```
+				
+				- where x_train.shape[0] corresponds to the number of unique samples in the training dataset x_train. By setting steps_per_epoch to this value, we ensure that the model sees x_train.shape[0] augmented images in each epoch.
+
 - Mini Project Image Augmentation
 - Groundbreaking CNN Architecture
+	- ImageNet Project
+	- AlexNet Architecture
+		- pioneered ReLU and dropout
+	- VGG Architecture (16, 19)
+		- Simple and elegant
+		- 3x3 convolutions
+		- 2x2 pooling
+		- 3 fully connected layers
+	- Resnet Achitecture
+		- Similar to VGG
+		- Largest has 152 layers
+		- Vanishing Gradients problem which arises when we train using backpropagation
+		- Solutions was to skip layers 
+		- These architectures are available as APIs in keras  
 - Visualizing CNNs 1
+	- Visualizing activation maps to understand how CNNs are working
+	- Start with an image containing random noise and gradually add filter depth until the output becomes increasingly complex
+	- Using an image instead of random noise creates an interesting hybrid between the filter and the input
+	- https://experiments.withgoogle.com/what-neural-nets-see
 - Visualizing CNNs 2
+	- Visualization of CNN allow us to see exactly how it activates (or what it sees) 
 - Transfer Learning
+	- Transfer learning involves taking a pre-trained neural network and adapting the neural network to a new, different data set.
+	- One technique is where only one layer in a convolutional network is trained
+	- Thrun used a transfer learning approach with an inception model. 
+	 - As final step he replaced the fully connected layer with another more simple layer
+	 - inputs for each layer were pre-trained on image net
+	 - this works best when the dataset large and the data is very close the MNIST database
+	 - There are four main cases:
+
+		1. new data set is small, new data is similar to original training data
+		2. new data set is small, new data is different from original training data
+		3. new data set is large, new data is similar to original training data
+		4. new data set is large, new data is different from original training data
+	- Overfitting is a concern when using transfer learning with a small data set.
+	- See PDF for full detail
 - Transfer Learning in Keras
+	- Classifying dog breeds 
+		- dataset 8000+ images
+		- VGG-16  model pre-trained 
+		- slice off end of the network and add a new classification layer, freeze weights in other layers and only train layers of the new classification layer.  
+		- We'll save output as new input
+		- finally we'll have only two layers, input and output
+		- new dataset will be known as bottleneck features
+		- use globalaveragepooling layer for dimensionality reduction
+
+# Deep learning for cancer detection
+
+- 5.4 million cases per year
+- 20% of americans will eventually get skin cancer
+- the probability of stage 4 patients surviving (over 5 years) is very low
+- 130,000 images of skin conditions (labeled and biopsied). We had ground truth classification of all the types of diseases of the skin.
+- Architecture
+	- Recurrent Convolutional Neural Network
+	- 757 classes
+	- Random vs Pre-initialized weights
+		- Significantly better results when the net was trained from completely different images
+	- validating the training
+		- subset for testing, 72% accuracy on a three way classification
+		- Dermatologist could not meet this accuracy
+	- Precision vs Recall, Sensitivity Specificity
+		- Sensitivity
+			- Of all the sick people, how many did we diagnose as sick?
+			- Out of all the malignant lesions, what percentage are to the right of the threshold (correctly classified)?
+		- Specificity
+			- Of all the healthy people, how many did we diagnose as healthy?
+			- Out of all the benign lesions, what percentage are to the left of the threshold (correctly classified)?
+- Threshold value for classifying melanoma should be low. It's better to send a healthy person for furthur diagnosis then to send a sick person home.
+- Refresher on ROC
+	- Perfect, Good, and Random Split (1, 0.8, 0.5)
+	- Calculate True Positives, False Positives
+	- We can calculate for every possible split
+	- We take those calculations and create a curve
+	- The closer the area under the ROC curve is to 1, the better your model is.
+	- And we plot that point, where the coordinates are (Sensitivity, Specificity). If we plot all the points corresponding to each of the possible thresholds between 0% and 100%, we'll get the ROC curve that I drew above. Therefore, we can also refer to the ROC curve as the Sensitivity-Specificity Curve.
+	- A completely random algorithm will produce a straight line as its ROC curve
+- Visualization
+	- complex n-dimensional outputs and display them in 2d space
+	- T-SNE Visualization
+- What is the netwok looking at?
+	- Skin patches with darker sections
+- Refresher on Confusion Matrix
+	- Table to store four values TN, TP, FP, FN
+	- Type 1 and Type 2 Errors
+		- Sometimes in the literature, you'll see False Positives and True Negatives as Type 1 and Type 2 errors. Here is the correspondence:
+		
+		- Type 1 Error (Error of the first kind, or False Positive): In the medical example, this is when we misdiagnose a healthy patient as sick.
+		- Type 2 Error (Error of the second kind, or False Negative): In the medical example, this is when we misdiagnose a sick patient as healthy.    
+- Multi-class Confusion Matrix
+	- Dermatologist have a higher confusion value than neural networks  

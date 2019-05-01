@@ -25,7 +25,12 @@ Conv2D(filters=16, kernel_size=2, strides=2, activation='relu', input_shape=(200
 
 """
 Example #2
-Say I'd like the next layer in my CNN to be a convolutional layer that takes the layer constructed in Example 1 as input. Say I'd like my new layer to have 32 filters, each with a height and width of 3. When performing the convolution, I'd like the filter to jump 1 pixel at a time. I want the convolutional layer to see all regions of the previous layer, and so I don't mind if the filter hangs over the edge of the previous layer when it's performing the convolution. Then, to construct this convolutional layer, I would use the following line of code:
+Say I'd like the next layer in my CNN to be a convolutional layer that takes the layer constructed
+in Example 1 as input. Say I'd like my new layer to have 32 filters, each with a height and width of 3.
+When performing the convolution, I'd like the filter to jump 1 pixel at a time. I want the convolutional
+layer to see all regions of the previous layer, and so I don't mind if the filter hangs over the
+edge of the previous layer when it's performing the convolution. Then, to construct this
+convolutional layer, I would use the following line of code:
 """
 Conv2D(filters=32, kernel_size=3, padding='same', activation='relu')
 
