@@ -16,6 +16,8 @@ matplotlib = "*"
 seaborn = "*"
 keras = "*"
 tensorflow = "*"
+opencv-python = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.7.3"

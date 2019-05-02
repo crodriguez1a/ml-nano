@@ -26,3 +26,14 @@ Always add a ReLU activation function to the Conv2D layers in your CNN. With the
 When constructing a network for classification, the final layer in the network should be a Dense layer with a softmax activation function. The number of nodes in the final layer should equal the total number of classes in the dataset.
 Have fun! If you start to feel discouraged, we recommend that you check out Andrej Karpathy's tumblr with user-submitted loss functions, corresponding to models that gave their owners some trouble. Recall that the loss is supposed to decrease during training. These plots show very different behavior :).
 """
+
+"""
+On filters:
+ref: https://stackoverflow.com/questions/36243536/what-is-the-number-of-filter-in-cnn
+if you have 28x28 input images and a convolutional layer with 20 7x7 filters and stride 1,
+you will get 20 22x22 feature maps at the output of this layer. Note that this is presented
+to the next layer as a volume with width = height = 22 and depth = num_channels = 20.
+You could use the same representation to train your CNN on RGB images such as the ones
+from the CIFAR10 dataset, which would be 32x32x3 volumes (convolution is applied only
+to the 2 spatial dimensions).
+"""

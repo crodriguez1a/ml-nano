@@ -1258,7 +1258,7 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 	- Color images have a depth of 3 (rgb), black and white has a depth of 1
 	- Convolutional layers will be used to make the array deeper as it moves through the sequence
 	- Max pooling layers will be used to decrease the  spacial diumensions
-	- Should discover hierarchies of spacial patterse
+	- Should discover hierarchies of spacial patterns
 	- padding is better when set to same, and strides to 1
 	- We'll want to increase filters as layers increase
 	- relu activation in all layers
@@ -1266,7 +1266,7 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 	- to reduce the height and width, we add max pooling layers
 	- goal is an array that is quite deep but relatively small height and width
 	- This will gradually takes spatial data and record the contents of the image, this removes the need for pixels to remain together in order to be interpreted
-	- Finall we can flatten and feed to one or more fully connected layers
+	- Finally we can flatten and feed to one or more fully connected layers
 	- reminder: output layers always match number of classes 
 	- Things to Remember
 		- Always add a ReLU activation function to the Conv2D layers in your CNN. With the exception of the final layer in the network, Dense layers should also have a ReLU activation function.
@@ -1390,3 +1390,19 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 		- Type 2 Error (Error of the second kind, or False Negative): In the medical example, this is when we misdiagnose a sick patient as healthy.    
 - Multi-class Confusion Matrix
 	- Dermatologist have a higher confusion value than neural networks  
+
+- Some additional definitions and resources
+
+- In a fully connected layer, each neuron receives input from every element of the previous layer. In a convolutional layer, neurons receive input from only a restricted subarea of the previous layer. ... The input area of a neuron is called its receptive field.
+
+- https://medium.com/@sh.tsang/review-inception-v3-1st-runner-up-image-classification-in-ilsvrc-2015-17915421f77c
+
+- https://towardsdatascience.com/understanding-your-convolution-network-with-visualizations-a4883441533b
+
+- https://towardsdatascience.com/keras-transfer-learning-for-beginners-6c9b8b7143e
+
+- https://medium.com/technologymadeeasy/the-best-explanation-of-convolutional-neural-networks-on-the-internet-fbb8b1ad5df8
+
+- https://ayearofai.com/rohan-4-the-vanishing-gradient-problem-ec68f76ffb9b 
+
+- https://towardsdatascience.com/real-time-multi-facial-attribute-detection-using-transfer-learning-and-haar-cascades-with-fastai-47ff59e36df0 
