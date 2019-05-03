@@ -1406,3 +1406,15 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 - https://ayearofai.com/rohan-4-the-vanishing-gradient-problem-ec68f76ffb9b 
 
 - https://towardsdatascience.com/real-time-multi-facial-attribute-detection-using-transfer-learning-and-haar-cascades-with-fastai-47ff59e36df0 
+
+- https://jhui.github.io/2017/03/16/CNN-Convolutional-neural-network/
+
+- https://www.dlology.com/blog/one-simple-trick-to-train-keras-model-faster-with-batch-normalization/
+
+- https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html#elu
+
+Image Augmentation in Keras
+
+In order to make the most of our few training examples, we will "augment" them via a number of random transformations, so that our model would never see twice the exact same picture.
+
+https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
