@@ -1413,8 +1413,208 @@ Reference: https://machinelearningmastery.com/how-to-configure-the-number-of-lay
 
 - https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html#elu
 
-Image Augmentation in Keras
+## Image Augmentation in Keras
 
 In order to make the most of our few training examples, we will "augment" them via a number of random transformations, so that our model would never see twice the exact same picture.
 
 https://blog.keras.io/building-powerful-image-classification-models-using-very-little-data.html
+
+# Reinforcement Learning
+
+- Intro
+	- Study environments with well defined rules and dynamics
+	- construct algorithms to understand rules and logic 
+	
+- Applications
+	- Self Driving Cars, Ships, Airplanes
+	- Board Games 
+		- (TD Gammon)
+		- Alpha Go
+			- More configurations in this game than atoms 
+	- Video Games
+		- Atari Breakout
+		- Dota
+	- Robotics
+		- teaching robots to walk   
+- Setting
+	- Learning from interaction
+	- Agent - learner or decision maker
+	- beginning from a random choice of action, learning from the response/feedback
+	- In general, the goal is initially only to maximize reward 
+	- Systematically proposing and testing hypotheses in real-time. 
+	- Exploration-Exploitation Dilemma
+		- Exploration
+			- Exploring potential hypetheses for how to choose actions
+		- Exploitation
+			- Exploiting limited knowledge about what is already known should work well
+	- Maximizing total rewards over an agents lifecycle   
+- OpenAI Gym
+	- An open source toolkit for developing and comparing RL algorithms
+		- frozen lake environment
+		- blackjack
+		- small world/large cliff
+		- taxi world  
+- Resources
+	- Classical algos in RL
+	- Free text book 
+- Reference Guide
+
+# The RL Framework
+
+- Intro
+	- Goal is to formulate a real world problem to be solved with RL
+- The setting 
+	- Agent-Environment Relationship
+	- Time evolves in a time-step
+	- observation, reward, action
+	- We'll always assume that the agent can fully observe its environment state
+	- ith state informs actions and rewards
+	- Agent has the goal to maximize cumulative rewards over all time steps 
+- Episodic vs. Continuing Tasks
+	- Episodic tasks have a well defined endpoint (return total rewards at time step T)
+	- New episodes learns from previous episodes
+	- Continuing tasks go on for infinity
+	- We used discounted returns to calculate cumulative rewards 
+- Sparse rewards
+	- reward signal is largely uninformative (e.g, reward at the end of a chess game with no feedback about a particular move or set of moves) 
+- The reward hypothesis
+	- Reward Hypothesis/Goal - maximizing expected cumulative rewards
+	- Rewards can be highly subjective
+- Goals and rewards, Part 1
+	- Google Deep Mind, teaching a robot to walk
+	- detailing the actions
+		- forces that the robot applies to its joints 
+	- states
+		- current positions and velocities of the joints
+		- measurement of the ground
+		- contact sensor data
+	- based on the information in the state, the agent must select a different action 
+- Goals and rewards, Part 2
+	- Detailing States and Actions
+	- Specifying Rewards
+		- at every time step the agent received a reward porportional to its forward velocity
+		- penalized for torques against each joint
+		- rewards for direction and balance on the center of the track
+		- it was framed as an episodic task where the episodes terminated when the robot fell 
+		- in summary, the goals were for the agent to walk fast, forward, smoothly, and for as long as possible 
+		- deepminds hypothesis pointed to the idea that the reward could be very simple
+- Cumulative Reward
+	- agent cannot focus on individual time steps
+	- actions have short and long-term consequence
+	- agent needs to gauge the effect of long-term consequence
+	- Agent is looking to maximize expected(predicted) return (maximizing the sum)
+- Discounted Return
+	 - value rewards that come sooner more highly especially when the probability of future rewards is variable
+	 - we will define a larger discount rate to apply to returns that will occur sooner and are more likely as opposed to ones that occur later and are less likely
+	 - we use gamma notation for discount rate and we apply an exponent to successive gammas applied to create a decay across the returns
+	 - gamma should be a value between 0 and 1
+	 - discounting is particulary relevant to continuing tasks since features are infinite 
+- MDPs, Part 1
+	- Markov Decision Process
+	- Set of possible actions as the action space (denoted with a scripted A)
+	- Set of possible states as the state space (denoted with a script S (nonterminal) and S+ (all states including terminal))
+- MDPs, Part 2
+	 - Denoting rewards at different states
+	 - the environment uses very little information to make its decisions, the envrironment response does not look backwards 
+- MPDs, Part 3
+	- Formally, an MDP is defined by the set of states, actions, rewards, one-step dynamics, and the discount rate
+	- discount factor should be less than 1, commonly set to 0.9 to prevent looking infinitely into the future. This prevents short sightedness
+	- For real world problems, you'll formally decide the MDP 
+	- Agents knows states and actions and discount
+	- Agent does not know one step dynamics
+- Finite MDPs
+	- both the state space and the action space must be finite 
+- Summary
+	- see pdf 
+
+# The RL Framework: The Solution
+
+- Policies
+	- Reward is always decided in the state of the decision as well as the state that follows
+	- Simplest policy is a mapping from state to action
+	- deterministic policy : input is state, output is action (represented by pi)
+	- stochastic policy : mapping accepts and environment state s and action a and returns probability that agent takes action a while in state s
+	- any deterministic policy can be expressed as probability as well (0,1)
+- Gridworld Example
+	- A gamified example 
+	- episodic task 
+	- reward signal punishes the agent for every time step away from the goal, rewards spike at completion 
+- State-Value Functions
+	- A function of the environment state
+	- each state has a corresponding number
+	- each state yields the return that's likely to follow if the agent starts in that state and then followed the policy for each time step
+		- for each state s 
+		- it yields the expected return 
+		- if the agent starts in state s 
+		- and then uses the policy
+		- to choose its actions for all time steps  
+- Bellman Equations
+	- You don't need to look calculate the sum of states every time
+	- instead, we'll find that the value function has a nice recursive property
+	- We can use the most current value because it corresponds to sum of all of the rewards to the end
+	- The value of any state is the sum of the immediate reward + the sum of state that follows (discounted value)
+	- Calculate the expected value of the sum 
+	- immediate reward and dicounted state to follow cannot be known with certainty
+	- we can express the value of any state in the mdp in terms of the immediate reward and the discounted state that follows
+
+> All of the Bellman equations attest to the fact that value functions satisfy recursive relationships
+
+
+- Optimality
+	- Value of policy pi prime is always larger that value of policy pi
+	- greater expected return makes for a better or policy
+	- a policy pi prime is better than or equal than policy pi if the value of pi prime when state is applied and value is greater for all states
+	- optimal state-value function is denoted as v*
+- Action-Value Functions
+	- lowercase q instead of v
+	- a function of the environment state and the agent action
+		- for each state s and action a
+		- it yields the expected return
+		- if the agent starts in state s
+		- then chooses action a
+		- and the uses the policy
+		- to choose its actions for all time steps 
+	- we need up to four values for each state corresponding to a different action
+	- v* or q* for optimal state
+- Optimal Policies
+	- The agent interacts with the environment and from that interaction is estimates the optimal value-action function and find corresponding optimnal policy 
+	- agent should pick the action that yields the highest exepcted reward value
+	- if the agent has the optimal value function it can quickly obtain the optimal policy
+- Summary
+	- See PDF
+
+# Dynamic Programming
+
+- OpenAI Gym: FrozenLakeEnv
+	- Assumption is that agent knows everything about the environment
+	- Finding the optimal policy 
+- An iterative method, part 1
+	- evaluating policies 
+		- enumerate the states 
+		- applying the bellman equation for each state (except the terminal state which is always 0)
+		- because we have the value of the terminal state we can solve the system of equations
+		- iterative method
+			- start with a guess for the value of each state (typicall zero)
+			- improve our guess for the value of each state and adapt the bellman equation as an update rule
+			- iterating over each state we increasingly arriving at a better guess for the value of each state 
+			- this will yield an estimate that converges to the true value function
+			- known as iterative policy evaluation
+- iterative policy eval
+	- assumes agent has perfect knowledge of the environment MDP
+	- system of equations motivated by bellman
+	- one equation for each environment state
+	- relating the value of its state to the value of its successor states
+	- again, iterative method will adapt bellman equation as an update rule
+	- loops over state, updates values for each state
+	- stopping short of true convergence
+	- we can stop when updates are hardly noticeable and don't change the estimates of the value function. 
+	- Apply stopping criteria 
+		- initialize with a small positive number (theta) 
+		- if the maximum change over all states is less than the small number theta we set, we can stop
+	- we can apply the estimated value of each state to the bellman equation to determine if we've arrived at the perfect value function
+- implementation
+- action values
+- implementation
+- policy improvement
+- implementation
+-  
