@@ -1599,7 +1599,7 @@ https://blog.keras.io/building-powerful-image-classification-models-using-very-l
 			- iterating over each state we increasingly arriving at a better guess for the value of each state 
 			- this will yield an estimate that converges to the true value function
 			- known as iterative policy evaluation
-- iterative policy eval
+- iterative policy evaluation
 	- assumes agent has perfect knowledge of the environment MDP
 	- system of equations motivated by bellman
 	- one equation for each environment state
@@ -1614,7 +1614,33 @@ https://blog.keras.io/building-powerful-image-classification-models-using-very-l
 	- we can apply the estimated value of each state to the bellman equation to determine if we've arrived at the perfect value function
 - implementation
 - action values
-- implementation
+	- we can express the value of the state-action pair s_1, right as the sum of two quantities: (1) the immediate reward after moving right and landing on state s_2, and (2) the cumulative reward obtained if the agent begins in state s_2  and follows the policy. 
 - policy improvement
-- implementation
--  
+	- remember that policy evaluation requires full knowledge of the environment 
+	- evaluation and improvement can work together
+	- improvement creates a new instance of the policy, which is then re-evaluated and so on until convergence to the optimal policy
+	- we always begin with equiprobable value policy
+	- break improvement into two steps
+		- first calc action value from state value
+		- pick one action that maximizes the action value function
+	- any policy that (for each state) assigns zero probability to the actions that do not maximize the action-value function estimate (for that state) is an improved policy. 
+	- When there are more than one maximized action values, you can choose arbitrarily or use a stochastic approach
+- Policy Iteration
+	- Combines evaluation and improvement
+	- repeat this loop until finally we encounter an improvement step that doesn't require any change to policy
+	- guaranteed convergence to the optimal policy in a finite mdp
+- Truncated Policy Iteration 
+	- using an absolute number of iterations instead of using of waiting for natural termination
+	- we don't need a perfect or near-perfect idea of the value function to get an optimal policy 
+- Value Iteration
+	- Policy evaluation step is stopped after a single sweep
+	- Combining the two equations to simplify iteration
+- Summary
+	- Policy Iteration
+		- Finds the optimal policy through successive rounds of evaluation and improvement.
+	- Policy Improvement
+		- Given a value function corresponding to a policy, proposes a better (or equal) policy.
+	- (Iterative) Policy Evaluation
+		- Computes the value function corresponding to an arbitrary policy.
+	- Value Iteration
+		- Finds the optimal policy through successive rounds of evaluation and improvement (where the evaluation step is stopped after a single sweep through the state space).     
