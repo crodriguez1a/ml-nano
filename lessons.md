@@ -1644,3 +1644,82 @@ https://blog.keras.io/building-powerful-image-classification-models-using-very-l
 		- Computes the value function corresponding to an arbitrary policy.
 	- Value Iteration
 		- Finds the optimal policy through successive rounds of evaluation and improvement (where the evaluation step is stopped after a single sweep through the state space).     
+
+# Monte Carlo Methods
+
+- Not given environment knowledge and must learn from interaction
+
+- MC Prediction: State Values
+	- Given a policy, how might the agent estimate the value function
+	- On-Policy Method
+		- Generate episodes from following policy pi. Then use the episodes to estimate v pi
+	- We'll use some sample episodes to estimate the value function
+	- Look at all the occurences with state X
+	- Calculate discounted returns after occurences of state x
+	- MC Prediction takes the average of the values and plugs it in as estimate for the value of state x 
+	- The value of the state is the value of the expected return after that state has occured
+	- Visit: Every occurence of state in an episode as a visit
+	- First visit: The value of state Y is an average of the returns after first vist
+	- Every visting: an average of the returns after every visit
+
+- MC Prediction: Action Values
+	- In DP, we use state value function to obtain action values, but here we don't have one-step dynamics
+	- To get action values, we make a small modification to DP algo
+	- We'll look at the visits to each state-action pair
+	- We'll again use first vist or every visit methods
+	- Our algo can only estimate from pairs that have been visited
+	- We don't try to evaluate for determistic polices and only for stochastic policies
+	- We can calculate a nice action value as long as the agent visits enough states
+
+- Generalized Policy Iteration
+	- the commonalities of policy iteration, truncated policy iteration, value iteration (see screengrab for refresher)
+
+- MC Control: Incremental
+	- Again, evaluation followed by improvement
+	- Instead of calculating averages at the end of episodes, we update at each visit
+	- This algorithm can keep a running estimate of the mean of a sequence of numbers
+	
+- MC Control: Policy Evaluation
+	- Algo looks at each visit in order and updates each successively updates the mean mu for a single state action pair, but we want to maintain values for many state-action pairs
+	- Agent samples an episode
+	- For every time step, we look at corresponding state-action pair 
+	- first visit, we calc corresponding return
+	- from there we update the corresponding value
+	- We have to initialize with the number of times we visited each pair
+
+- MC Control: Policy Improvement
+	- We have to ammend the DP algo (which used greedy policy)
+	- Instead of always constructing a greedy policu, we'll construct a stochastic policy that selects a policy closest to the greedy policy
+	- epsilon greedy policy should be included in the improvement step
+
+- Exploration vs Exploitation
+	- A successful RL agent cannot act greedily at every time step (that is, it cannot always exploit its knowledge); instead, in order to discover the optimal policy, it has to continue to refine the estimated return for all state-action pairs (in other words, it has to continue to explore the range of possibilities by visiting every state-action pair). That said, the agent should always act somewhat greedily, towards its goal of maximizing return as quickly as possible. This motivated the idea of an \epsilonϵ-greedy policy.  
+	- setting \epsilon = 1ϵ=1 yields an \epsilonϵ-greedy policy that is equivalent to the equiprobable random policy.
+	- At later time steps, it makes sense to favor exploitation over exploration, where the policy gradually becomes more greedy with respect to the action-value function estimate. 
+	- Greedy in the Limit with Infinite Exploration (GLIE)
+		- modify the value of \epsilonϵ when specifying an \epsilonϵ-greedy policy. In particular, let \epsilon_iϵ 
+i
+​	  correspond to the ii-th time step.
+	- Setting the Value of \epsilonϵ, in Practice
+		- Since we can't infinite episodes in practice, we can use fixed epsilon or let epsilon decay to a small positive number like 0.1
+		- This is because one has to be very careful with setting the decay rate for \epsilonϵ; letting it get too small too fast can be disastrous. If you get late in training and \epsilonϵ is really small, you pretty much want the agent to have already converged to the optimal policy, as it will take way too long otherwise for it to test out new actions!
+​
+	- MC Control Constant-alpha
+		- Calculating error by looking at the estimate versus the actual
+		- If error is > 0, we increase the function
+		- if error is < 0, we decrease
+		- we change by an amount proportional to learning rate (alpha)
+		- This ammendment should be made to MC policy evaluation
+		- This ensures that the agent primarily considers the most recently sampled returns when estimating the action-values and gradually forgets about returns in the distant past. "taking a forgetful mean of a sequence"
+		- You should always set the value for \alphaα to a number greater than zero and less than (or equal to) one.
+
+			1. If \alpha=0α=0, then the action-value function estimate is never updated by the agent.
+			
+			1. If \alpha = 1α=1, then the final value estimate for each state-action pair is always equal to the last return that was experienced by the agent (after visiting the pair).
+
+			1. Smaller values for \alphaα encourage the agent to consider a longer history of returns when calculating the action-value function estimate. Increasing the value of \alphaα ensures that the agent focuses more on the most recently sampled returns. 
+		
+		- It is important to mention that when implementing constant-\alphaα MC control, you must be careful to not set the value of \alphaα too close to 1. This is because very large values can keep the algorithm from converging to the optimal policy \pi_*π 
+∗
+​	 . However, you must also be careful to not set the value of \alphaα too low, as this can result in an agent who learns too slowly. The best value of \alphaα for your implementation will greatly depend on your environment and is best gauged through trial-and-error.
+
