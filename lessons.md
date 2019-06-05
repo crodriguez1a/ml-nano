@@ -1723,3 +1723,61 @@ i
 ∗
 ​	 . However, you must also be careful to not set the value of \alphaα too low, as this can result in an agent who learns too slowly. The best value of \alphaα for your implementation will greatly depend on your environment and is best gauged through trial-and-error.
 
+# Temporal-Difference Methods
+
+- Introduction
+	- Agents will learn online streaming data in real-time, not episodic tasks. 
+	- While MC needed an episode to end in order to calculate returns
+	- At every move, estimating the probability that it's winning the game as opposed to waiting until the end of the game
+	- can solve continuous and episodic tasks
+
+- TD Prediction
+	- This algorithm is a solution as long as we never change policy between episodes
+	- Adapting the update step 
+	- Using the Belman equation to motivate the adjustment to the update step
+	- Understand the value of state in terms of the values of its successor states
+		- removing any mention of the return that comes at the end of the episode
+		- values are being updated along the way
+	- TD target
+		- finds middle ground between the previous estimate and the next
+	- One-Step TD or TD(0)
+		- updating the value function after individual step for the previous state
+		- (continous tasks) as long as the agent interacts with the environment for long enough, we should have a decent estimate for the value function
+		- (episodic tasks) check at every time step if the current state is the termal state
+	- Comparing to Monte Carlos
+		- Whereas MC prediction must wait until the end of an episode to update the value function estimate, TD prediction methods update the value function after every time step. Similarly, TD prediction methods work for continuous and episodic tasks, while MC prediction can only be applied to episodic tasks.
+		- In practice, TD prediction converges faster than MC prediction.
+	- Summary
+		- Agent interacts at the environment
+		- recieves some state at s0
+		- chooses an action based on a policy
+		- immediately receives reward and next state
+		- it uses that information to update the value function for the previous state   
+- TD Prediction: Action Value
+	- Uses state, action pairs to estimate the action value function 
+	- Updating the action value function after each action is chosen 
+- TD Control: Sarsa(0)
+	- Select action at every time step using a value that's epsilon greedy
+	- Sarsa for short, each action value update uses a state action reward, next state, next action tuple of interaction
+	- Summary
+		- Sarsa(0) is guaranteed to converge to the optimal action-value function, as long as the step-size parameter \alphaα is sufficiently small, and the Greedy in the Limit with Infinite Exploration (GLIE) conditions are met. The GLIE conditions were introduced in the previous lesson, when we learned about MC control. Although there are many ways to satisfy the GLIE conditions, one method involves gradually decaying the value of \epsilonϵ when constructing \epsilonϵ-greedy policies.
+		- then the algorithm is guaranteed to yield a good estimate for q_ as long as we run the algorithm for long enough. 
+- TD Control: Sarsamax (Q-learning)
+	- After receiving the reward we're update the policy before choosing the next action
+	- for every step use an action from the greedy policy instead of an epsilon greedy policy
+	- directly attempts to estimate the optimal action value function at every time step
+- TD Control: Expected Sarsa
+	- Only difference from sarsa max is in the update step for the action value
+	- Sarsa-max took the maximum over all actions of all possible next state action pairs
+	- Expected sarsa uses the expected value of the next action pair, where the expectation takes into account the probability that the agents selects each possible action from the next state.
+
+- Analyzing Performance
+	- The differences between these algorithms are summarized below:
+
+		- Sarsa and Expected Sarsa are both on-policy TD control algorithms. In this case, the same (\epsilonϵ-greedy) policy that is evaluated and improved is also used to select actions.
+		- Sarsamax is an off-policy method, where the (greedy) policy that is evaluated and improved is different from the (\epsilonϵ-greedy) policy that is used to select actions.
+		- On-policy TD control methods (like Expected Sarsa and Sarsa) have better online performance than off-policy TD control methods (like Sarsamax).
+		- Expected Sarsa generally achieves better performance than Sarsa.
+	- If you would like to learn more, you are encouraged to read Chapter 6 of the textbook (especially sections 6.4-6.6).
+
+ 
