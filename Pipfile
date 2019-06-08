@@ -18,6 +18,7 @@ keras = "*"
 tensorflow = "*"
 opencv-python = "*"
 pillow = "*"
+gym = "*"
 
 [requires]
 python_version = "3.7.3"
