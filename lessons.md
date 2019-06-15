@@ -1701,7 +1701,7 @@ https://blog.keras.io/building-powerful-image-classification-models-using-very-l
 i
 ​	  correspond to the ii-th time step.
 	- Setting the Value of \epsilonϵ, in Practice
-		- Since we can't infinite episodes in practice, we can use fixed epsilon or let epsilon decay to a small positive number like 0.1
+		- Since we can't have infinite episodes in practice, we can use fixed epsilon or let epsilon decay to a small positive number like 0.1
 		- This is because one has to be very careful with setting the decay rate for \epsilonϵ; letting it get too small too fast can be disastrous. If you get late in training and \epsilonϵ is really small, you pretty much want the agent to have already converged to the optimal policy, as it will take way too long otherwise for it to test out new actions!
 ​
 	- MC Control Constant-alpha
@@ -1780,4 +1780,267 @@ i
 		- Expected Sarsa generally achieves better performance than Sarsa.
 	- If you would like to learn more, you are encouraged to read Chapter 6 of the textbook (especially sections 6.4-6.6).
 
+# RL in Continuous Spaces
  
+1. Deep Reinforment Learning
+	- Refers to approaches that use deep learning, mainly, Multi-Layer Neural Networks to solve reinforcement learning problems.
+	- RL in Continous Spaces
+	- Deep Q-Learning
+	- Policy Gradients
+	- Actor-Critic Methods
+2. Resources
+	- Sutton/Barto Part II
+3. Discrete vs. Continous Spaces
+	- Discrete Spaces
+		- Finite set of states and actions (chess, or grid-based)
+		- allows us to use a dictionary to map every state action pair to a real number
+		- Critical to algos like value iteration that iterate over each possible state or action
+	- Continuous Spaces
+		- not restricted to a set of distinct values
+		- can accept a range of values (real numbers)
+		- can be multi-dimensional
+	- Why Continuous?
+		- Because the real-world has physics
+		- most physical environments require continous learning
+4. Space Representation
+	- Check out this [table of the environments](https://github.com/openai/gym/wiki/Table-of-environments) available in OpenAI Gym. Here Discrete(...) refers to a discrete space, and Box(...) indicates a continuous space. See [documentation](https://gym.openai.com/docs/#spaces) for more details. 
+5. Discretization
+	- Converting a continuous space into a discrete one
+	- identifying certain position/states as relevant (even in a continuous environment)
+	- actions can be discretized as well
+	- occupancy grid can be used to identify obstacles
+	- binary space partitioning or quad trees
+- Non-Uniform Discretization
+	- Speed for example, can be discretized into ranges of different lengths (non-uniform) 
+6. Tile Coding
+	- Only with prior knowledge of the state space can you manually design a discretisation scheme
+	- In order to function in arbitrary environments we need a more generic method.
+	- Overlay multiple grids or tiling over the state space (slightly shifted)
+	- Modifying value function with weight
+	- tile params must be manually selected ahead of time (splits, sizes, etc)
+	- Adaptive tile coding will split the state space more automatically (splitting when the value function isn't changing), uses heuristics not relying on a human to define discretization ahead of time
+7. Coarse Coding
+	- sparser set of features to encode the state space
+	- binary bit vector
+	- spherical grid
+	- smaller circles results in less generalization
+	- large circles lead to more generalization and a smoother action value function
+	- Radial Basis Functions
+	- result is a binary vector
+	- the distance from the center of the circle is a measure of how active that circle is
+	- RBFs can reduce drastically the number of features
+8. Function Approximation
+	- when discretizing large continous spaces, the number of discrete spaces will become very large
+	- introduces a parameter vector w, tuning until we find the closest approximatoin for action/state value function
+	- We'll need a feature vector (which allows us to used derived values)
+	- we use dot product to create a scalar
+	- we're trying approximate the underlying value function with a linear function
+9. Linear Function Approximation
+	- For example, we can use gradient descent to approximate the underlying value function
+	- minimizing the difference between the true value function and the approximation 
+	- minimize error, error gradient or derivative, update rule
+	- after sampling enough states we can come close to the actual value
+	- changing weights a small step away from the vector
+	- for model-free we need to approximate the action value function (same gradient descent method)
+	- to compute all the action values at once, we can compute an action vector (taking in both state and action)
+	- extend our weight vector into a matrix
+	- this is called Action Vector Approximation
+	- limitations
+		- can only represent linear relationships between inputs and outpus
+		- for non-linear shapes, [obviously] we need non-linear functions 
+10. Kernel Functions
+	- Again, we need feature transformation taking in state and action pairs to create a feature vector
+	- Kernel Functions or Basis functions
+		- transform input state into a different space
+		- this allows to use linear functions approximation
+		- radial basis function
+			 - for any given state we can reduce the state  representation to a vector of responses from these radial basis functions, then we can continue using linear function approximation
+11. Non-Linear Function Approach
+	- we can capture non-linear relationships using abitrary kernels
+	- but what if our underlying values were truly non-linear
+	- activation functions can be used, we can update parameters using gradient descent
+
+# Deep Q-Learning
+
+1. Intro to Deep Q-Learning
+	- an elegant algorithm that demonstrates how you can use a neural network to estimate value
+	- Adapting model-free methods 
+2. Neural Nets as Value Functions
+	- NNs are universal function approximators
+	- input should be a vector (feature transformation)
+	- weights of the nn filling the parameter w
+	- Steps
+		- use the squared difference between the estimated and target value as our error or loss
+		- then we back propagate it through the network, adjusting weights along the way to minimize loss (typically applying gradient descent)
+		- we need to know the derivative of the value function respective to its weights
+		- we just need a way to figure out loss
+	- we need a realistic target in place of the true value functions
+3. Monte Carlo Learning
+	- cumulative discounted reward can be the target
+	- in our update rule, substitue the unkown true value function with a return
+	- evaluation, generate an episode, update for each step, followed by an improvement step (every-visit)
+4. Temporal Difference Learning
+	 - uses the td target (or estimated return)
+	 - we can use the td target in place of the unknown value function
+	 - we can them apply function approximation
+	 - use our gradient descent update rule and apply weights 
+	 - good for episodic tasks where each episode is guaranteed to terminate
+	 - SARSA is an on-policy, mutating the policy along the way, the policy being learned and the one being followed are tightly coupled
+5. Q-Learning
+	- off policy variant of TD learning
+	- main diff is the update step
+	- instead of picking the next action, we choose an action greedily (not taking this action but used for performing the update)
+	- one policy to take actions, a yet another to perform value updates (e-greedy and greedy)
+	- For continuing tasks
+		- modify to remove the concepts of episodes
+	- Sarsa vs Q (see graphic)
+	- Off-policy advantages
+		- decoupling the action from the update
+		- different variations of the algorithm
+		- more exploration when learning
+		- learning from demonstration
+		- supports offline or batch learning  	 - One drawback of both SARSA & Q-Learning, since they are TD approaches, is that they may not converge on the global optimum when using non-linear function approximation.
+
+6. Deep Q Network
+	- DNN acting as a function approximator
+	- max value indicating the action to take
+	- fed back the state at each time step
+	- square images were used to optimize nn on gpu
+	- deep q is designed to produce a q value for every forward action in an individual task
+	- you can use the vector output stochastically or by using the max
+	- convolutional layers used to extract temporal difference
+	- network weights can diverge (oscillate), to overcome reseachers came up with techniques 
+7. Experience Replay
+	- storing the experience tuples at each time step using a replay buffer
+	- sample a small batch of tuples, reuse tuples, cut down on costly calculations
+	- you can sample at random (out of order)
+	- prevents oscillation or divergence
+	- RBF kernels or Q-network as function approximators
+	- blowing up the order of training, so that learning is more robust, ignores the sequence of observation of tuples
+	- reduces reinforcement learning to supervised learning
+	- prioritized experience tuples that are rare or more important
+8. Fixed Q Targets
+	- another kind of correlation that q-learning is susceptible to
+	- too much correlation with target and parameters we are changing
+	- decoupling the target from the parameters that are changing
+	- fixing the function parameters that we don't change during the learning step
+	- less likely to diverge or fall into oscillations
+9. Deep Q-Learning Algorithm
+	- Two main processes
+	- **sample** the environment to store into replay memory
+	- **learn** from batch of randomly selected samples
+	- not dependent on each other
+	- circular Q that retains the n most recent experience tuples (memory is finite)
+	- for temporal relations stack a few input frames (padding is sometimes required)
+	- learning step must wait for sufficient number of samples
+	- reward clipping, error clipping, etc.
+	- Mnih et al., 2015. [Human-level control through deep reinforcement learning](https://storage.googleapis.com/deepmind-media/dqn/DQNNaturePaper.pdf). (DQN paper)
+He et al., 2015. [Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification](https://arxiv.org/abs/1502.01852). (weight initialization)
+
+10. DQN Improvements
+	- Double DQNs
+		- rewrite the target to use argmax
+		- accuracy of q-values depends on prior experience 
+		- select best action by evaluating first using w and w prime
+		- prevents chance selections
+		- w- can be reused
+	- Prioritize Replay
+		- importance experience occur more infrequently
+		- older important experience may get lost as buffer is flushed
+		- we can use td error detla to assign priority
+			- the bigger the error the more we expect to learn from that tuple
+			- compute a sampling probability
+			- when a tuple is picked, we can update its priority 
+			- it td error is 0, priority is also 0, so we can add a small constant to prevent ignoring samples
+			- have to make one adjustment to our update rule, sample must match underlying distribution, non-uniform sampling will not match original distribution, so introduce a sampling weight (see prioritized experience paper)
+	- Dueling Networks
+		-  Using two streams, on to estimate state value, and one that estimates advantage for each action (advantage values)
+		-  value of most states don't vary a lot across actions
+		-  see Dueling networks paper
+11. Implementing Deep Q-Learning
+	- [Keras](https://keon.io/deep-q-learning/)
+	- [PyTorch](http://pytorch.org/tutorials/intermediate/reinforcement_q_learning.html)
+12. TensorFlow Implementation
+13. Wrap Up
+
+# Policy-Based Methods
+
+1. Why Policy-Based Methods
+	 - Value-Based - policy is defined implicitly
+	 - Policy-Based - optimal policy without looking at action value
+	- Simplicity
+		- directly estimate the optimal policy
+		- deterministic would be a simple mapping
+		- stochastic would be a probability given state and action
+	- Stochastic Policies
+	- good non-determinist Environments 
+	- Aliased States - two or more states perceived to be identical but are actually different
+	- two states with identical features would have equal action, state value, meaning he may become stuck repeating the same actions
+	- Well suited for continous action spaces
+	- and high dimensional action spaces
+2. Policy Function Approximation
+	- we can apply function approximation in calculating policy
+	- we can use objective functions to find maximum objective value
+		- Start State Value
+		- Average State Value
+		- Average Action Value
+		- Average Reward 
+3. Stochastic Policy Search
+	- changing objective parameters slightly to find better objective value
+	- can use any policy function
+	- Steepest Ascent approach
+	- simulated annealing, reduce noise or radius as we approach an optimal solution
+	- Adaptive noise - reduce search radius when we are closer to the optimal policy, or increase search radius from the current best policy
+	- may get stuck in local optimum or take long to converge
+4. Policy Gradients
+	- change policy parameters by a small fraction alpha, of the gradient of the objective function, J theta
+	- Compute the gradient of the objective function with respect to policy parameters
+	- directly compute the next set of policy parameters that seem most promising
+	- iterate while updating gradient
+	- gradient can be estimated using finite differences
+	- computing gradients analytically
+	- Likelyhood Ratio Trick
+	- compute the derivative of log probabilities
+	- tensorflow, pytorch have this implemented
+	- we can update policy parameters to improve policy iteratively
+5. Monte Carlos Policy Gradients
+	- reinforced algorithm perform update at the end of each episode
+6. Constrained Policy Gradients
+	- intermediate policies where we've constrain a policy to prevent parameters from being changed too drastically
+	- we can also achieve using a penalty
+	- paramater difference 
+	- policities can be probability distributions
+	- KL-Divergence as Constraint
+	- Proximal Policy Optimzation
+7. Recap
+	- Advantages of value-based methods
+		- directly map from state to actions
+		- good with continous control tasks
+		- true stochastic policies 
+		- active area of research
+
+# Actor-Critic Methods
+
+1. Keep track of state of state, action values to calculate the objective
+2. A better score function
+	- something that can be computed online as we interact and does not depend on the end of the episode
+	- we can use temporal difference mechanism to update value
+3. Two Function Approximators
+	- Q-learning with function approximation to update action values
+	- we can use two function approximators for policy update and value update
+	- Policy (actor), Value (critic)
+	- can be trained independently using neural nets
+4. The actor and the critic
+	- the actor performs, while the critic provides feedback
+	- iteration can happen until not much improvement is seen
+	- critic can give better and better feedback as time goes on
+	- At each time step we sample the current state and estimate an action which is take by the actor, the critic evalutes, the actor then updates it value, then critic updates its value at the end of each time step
+5. Advantage Function
+	- reduce variance between update steps
+	- advantage value tells us how much we gain from taking some action
+6. Actor-Critic with Advantage
+	- replace state action value with advantage value
+	- critic needs to keep track of two value functions, but can use td error to calculate advantage
+7. Summary
+	- Variant of policy and value based methods
+	- RL used to cool Googles data center by 40 percent
