@@ -1659,8 +1659,8 @@ https://blog.keras.io/building-powerful-image-classification-models-using-very-l
 	- MC Prediction takes the average of the values and plugs it in as estimate for the value of state x 
 	- The value of the state is the value of the expected return after that state has occured
 	- Visit: Every occurence of state in an episode as a visit
-	- First visit: The value of state Y is an average of the returns after first vist
-	- Every visting: an average of the returns after every visit
+	- First visit: The value of state Y is an average of the returns after first visit
+	- Every vist: an average of the returns after every visit
 
 - MC Prediction: Action Values
 	- In DP, we use state value function to obtain action values, but here we don't have one-step dynamics
