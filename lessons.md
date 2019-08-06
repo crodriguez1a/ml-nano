@@ -1,21 +1,5 @@
 **Week of Dec 11, 2018**
 
-
-| Project	Suggested Deadline  | | 
-| --- | --- |
-| Term Begins| 	Dec 11 |
-| Predicting Boston Housing Prices	| Jan 1 |
-| Finding Donors for CharityML	| Jan 22 |
-| Creating Customer Segments	| Feb 5 |
-| Term End Deadline	| Feb 26 |
-
-| W1 | | |
-| --- | --- | --- |
-| Time | Activity | Notes |
-| ~~1hr~~ | Complete Lesson 1: Welcome to ML | Prerequisites are important, but you can also learn them as you go.
-| ~~3hr~~ | Complete Lesson 2: What is ML | These are just for overview, we will cover them again in future lessons.
-| ~~2hr~~ q | Finish Practice Project: Titanic Survival Exploration Project | Here the goal is to get familiarized with all the libraries involved.
-
 Lesson 2:
 
 # Decision Trees
