@@ -205,11 +205,13 @@ Out of the points labeled positive how many did we correctly classify as positiv
 
 Recall = Correctly classified as positive / total actual positive
 
+## R Score (Correlation Coefficient)
+In statistics, the **correlation coefficient r** measures the strength and direction of a linear relationship between two variables on a scatterplot. The value of r is always between +1 and –1. Closer to 1 being a strong or near perfect linear relationship.
 
 ## F1 Score
 
 Harmonic Mean Average - 2 * xy / x + y where x = precision and y = recall
-Closer to the smallest between precision and recall raising a flag if one is small
+Closer to the smallest between precision and recall raising a flag if one is small. Represents the overall accuracy
 
 ## Fβ (beta) Score
 
